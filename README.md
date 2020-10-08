@@ -1,2 +1,9 @@
-# ECE39595J_Project1
-xml parser
+Java project step 1
+Please read the project description and refer to it while reading this.
+Our first step will be to create an XML parser for the dungeon files. Included in this .zip file is an exampleparser file that shows how to create a parser for different xml files using the SAXparser. While you will not have complete classes for the dungeon objects created by the parser, you will need skeleton classes built. parserXML.pdf shows the classes that are needed and the methods needed in those classes. Your output will be a printout indicating each method and constructor call of one of the classes shown in parserXML.pdf during the parsing of the xml files. The easiest way to do this is to simply put print statements in each of the functions and constructors in your skeleton classes.
+There are comments in the StudentXMLHandler.java file that describe how the parsing works. You should also read the README.txt file that describes the high-level description of the structure of the entire example.
+To run the example, do javac Test.java followed by java Test <filename>, where <filename> is the file in xmlfiles to be parsed. There is only one file there.
+What you should turn in:
+A directory userid.
+Under it should be a src directory and an xmlfiles directory javac src/Test.java should compile the main Test class and any related classes. java Test <filename> should parse the file xmlfiles/filename. The Tesclass in the example shows how to do this. Note that your IDE may use a different path to get to the file, and you may need to adjust the path to your file after putting your code into the proper form for turning it in. Do a quick test on a file before submitting to make sure everything is working.
+You may use packages if you want, just make sure javac src/Test.java does compile your program.
