@@ -1,7 +1,7 @@
 import java.util.ArrayList; 
-public class Creature {
-    private int hp;
-    private int hpMoves;
+public class Creature extends Displayable {
+    private int Hp;
+    private int HpMove;
     private int maxHit;
     private int posX;
     private int posY;
@@ -11,11 +11,11 @@ public class Creature {
 
     public Creature(){super();}
 
-    @override 
-    public void setHp(int _hp){hp = _hp;}
-    
-    @override
-    public void setHpMoves(int _hpMoves) {hpMoves = _hpMoves;}
+    @Override
+    public void setHp(int _hp){Hp = _hp;}
+
+    @Override
+    public void setHpMove(int _hpMoves) {HpMove = _hpMoves;}
 
     public void setDeathAction(CreatureAction da){dAction = da;}
 
