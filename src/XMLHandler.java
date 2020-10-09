@@ -41,6 +41,12 @@ public class XMLHandler extends DefaultHandler{
     private ArrayList<Point> points = new ArrayList<Point>();
     private StringBuilder data = null;
 
+    public ArrayList<structure> getStructures(){return structures;}
+    public ArrayList<Item> getItem(){return item;}
+    public ArrayList<ItemAction> getItemAction(){return iAction;}
+    public ArrayList<CreatureAction> getCreatureAction(){return cAction;}
+    public ArrayList<Creature> getCreature(){return creature;}
+
     @Override
     public void characters(char ch[], int start, int length) throws SAXException {
         data.append(new String(ch, start, length));
