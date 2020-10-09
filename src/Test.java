@@ -12,7 +12,7 @@ public class Test {
         String fileName = null;
         switch(args.length){
             case 1:
-                fileName = "xmlFiles\\"+args[0];
+                fileName = "xmlFiles/"+args[0];
                 break;
             default:
                 System.out.println("Invalid Argument");

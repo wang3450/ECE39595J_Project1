@@ -189,7 +189,7 @@ public class XMLHandler extends DefaultHandler{
         else if(height){
             if(s_parsed != null){
                 s_parsed.setHeight(Integer.parseInt(data.toString()));
-                width = false;
+                height = false;
             }
         }
         else if(hp){
