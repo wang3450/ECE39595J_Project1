@@ -31,6 +31,8 @@ public class Test {
             ArrayList<Creature> creature = handler.getCreature();
 
             int i;
+            System.out.println("Parsed Data Extracted From: " + args[0]);
+            System.out.println("Dungeon: " + handler.getDungeon());
             for(structure s : structures){System.out.println(s);}
             for(Item it: item){System.out.println(it);}
             for(ItemAction ia :iAction){System.out.println(ia);}

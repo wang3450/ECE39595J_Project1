@@ -46,7 +46,7 @@ public class XMLHandler extends DefaultHandler{
     public ArrayList<ItemAction> getItemAction(){return iAction;}
     public ArrayList<CreatureAction> getCreatureAction(){return cAction;}
     public ArrayList<Creature> getCreature(){return creature;}
-
+    public Dungeon getDungeon(){return dungeon;}
     @Override
     public void characters(char ch[], int start, int length) throws SAXException {
         data.append(new String(ch, start, length));
@@ -277,7 +277,7 @@ public class XMLHandler extends DefaultHandler{
                     s_parsed.setPoint(ppointer);
                     posY = false;
                 }
-                else{
+                else if(s_parsed instanceof Passage){
                     ppointer.setY(Integer.parseInt(data.toString()));
                     s_parsed.setPoints(ppointer);
                     posY = false;
