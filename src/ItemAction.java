@@ -17,4 +17,5 @@ public class ItemAction extends Action {
     public void setItem(Item _item){item = _item;}
     public void setName(String _name){name = _name;}
     public void setType(String _type){type = _type;}
+    public void setIntValue(int _intValue){intValue = _intValue;}
 }

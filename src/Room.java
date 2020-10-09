@@ -12,4 +12,10 @@ public class Room extends structure{
     public Room(String _name){name = _name;}
     public void setId(int _room) {room = _room;}
     public void setCreature(Creature Monster){creatures.add(Monster);}
+
+
+    //getters
+    public boolean getVisible(){return visible;}
+    public Point getPoint(){return point;}
+    
 }

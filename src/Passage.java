@@ -2,7 +2,7 @@ import java.util.ArrayList;
 public class Passage extends structure {
     private int room1;
     private int room2;
-    private ArrayList<Point> points;
+    private ArrayList<Point> points = new ArrayList<Point>();
     private boolean visible;
     private String name;
 
