@@ -31,7 +31,10 @@ public class Test {
             ArrayList<Creature> creature = handler.getCreature();
 
             int i;
-            for(structure s : structures){System.out.println(s);}
+            for(structure s : structures){
+                System.out.println(s);
+                
+            }
             for(Item it: item){System.out.println(it);}
             for(ItemAction ia :iAction){System.out.println(ia);}
             for(CreatureAction ca: cAction){System.out.println(ca);}
