@@ -7,12 +7,20 @@ public class Player extends Creature {
     private Item armor;
     private int posX;
     private int posY;
+    private int serial;
+    private int room;
+    private String name;
 
-    public void setWeapon(Item weapon) {
-        this.weapon = weapon;
+    public void setRoom(int _room){room = _room;}
+    public void setSerial(int _serial){serial = _serial;}
+
+    public void setWeapon(Item _weapon) {
+        weapon = _weapon;
     }
 
-    public void setArmor(Item armor) {
-        this.armor = armor;
+    public void setArmor(Item _armor) {
+        armor = _armor;
     }
+    
+    public void setName(String n){name = n;}
 }

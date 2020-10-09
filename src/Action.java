@@ -3,15 +3,16 @@ public class Action {
     private int intValue;
     private char charValue;
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessage(String _message) {
+        message = _message;
     }
 
-    public void setIntValue(int intValue) {
-        this.intValue = intValue;
+    public void setIntValue(int _intValue) {
+        intValue = _intValue;
     }
 
-    public void setCharValue(char charValue) {
-        this.charValue = charValue;
+    public void setCharValue(char _charValue) {
+        charValue = _charValue;
     }
+    public String getMessage(){return message;}
 }

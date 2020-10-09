@@ -3,17 +3,28 @@ public class Scroll extends Item {
     private int serial;
     private String name;
     private int visible;
-    private int posX;
-    private int posY;
-    private ItemAction action;
+    private Point point;
+    private Creature c = new Creature();
+    private ItemAction action = new ItemAction(c);
     //Need Item intvalue, item character value, and message from action
 
-    public Scroll(String name){
-        this.name = name;
+    public Scroll(String _name){
+        name = _name;
     }
 
-    public void setID(int room, int serial){
-        this.roomLocation = room;
-        this.serial = serial;
+    public void setID(int room, int _serial){
+        roomLocation = room;
+        serial = _serial;
     }
+
+    public void setMessage(String s){
+        action.setMessage(s);
+    }
+    
+    public String getAction(){
+        return action.getMessage();
+    }
+
+    public String getName(){return name;}
+
 }

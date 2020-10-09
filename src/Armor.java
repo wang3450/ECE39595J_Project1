@@ -1,22 +1,21 @@
 public class Armor extends Item{
     private int visible;
-    private int posX;
-    private int posY;
+    private Point point;
     private String name;
     private int roomLocation;
     private int serial;
-    //need ItemIntValue
+    private int intValue;
 
     public Armor(String _name){
-        this.name = _name;
+        name = _name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String _name) {
+        name = _name;
     }
 
     public void setID(int _room, int _serial){
-        this.roomLocation = _room;
-        this.serial = _serial;
+        roomLocation = _room;
+        serial = _serial;
     }
 }

@@ -24,9 +24,19 @@ public class Dungeon {
         }
     }
 
+    //setters
+    public void setName(String s){name = s;}
+    public void setWidth(int w){width = w;}
+    public void setGameHeight(int g){gameHeight = g;}
+
+    //getters
+    public String getName(){return name;}
+    public int getWidth(){return width;}
+    public int getGameHeight(){return gameHeight;}
+
     public void addRoom(Room r){rooms.add(r);}
     public void addCreature(Creature c){creatures.add(c);}
-    public void addPassage(Passage p){passages.add(r);}
+    public void addPassage(Passage p){passages.add(p);}
     public void addItem(Item i){items.add(i);}
 
 }

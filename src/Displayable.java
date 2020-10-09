@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Displayable {
     private boolean visible;
     private int MaxHit;
@@ -5,8 +6,8 @@ public class Displayable {
     private int Hp;
     private char Type;
     private int IntValue;
-    private int posX;
-    private int posY;
+    private Point point;
+    private ArrayList <Point> points = new ArrayList<Point>(); 
     private int width;
     private int height;
 
@@ -34,19 +35,14 @@ public class Displayable {
         IntValue = intValue;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
+    public void setPoint(Point p){ point = p;}
+
+    public void setWidth(int _width) {
+        width = _width;
     }
 
-    public void setPosY(int posY) {
-        this.posY = posY;
+    public void setHeight(int _height) {
+        height = _height;
     }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
+    public void setPoints(Point p){points.add(p);}
 }

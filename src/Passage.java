@@ -1,9 +1,8 @@
 import java.util.ArrayList; 
-public class Passage {
+public class Passage extends structure {
     private int room1;
     private int room2;
-    private ArrayList<Integer> posX = new ArrayList<Integer>();
-    private ArrayList<Integer> posY = new ArrayList<Integer>();
+    private ArrayList<Point> points;
     private boolean visible;
     private String name;
 
@@ -15,4 +14,5 @@ public class Passage {
     public void setName(String _name){
         name = _name;
     }
+    public void setPoints(Point p){points.add(p);}
 }

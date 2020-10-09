@@ -4,6 +4,5 @@ public class BlessCurseOwner extends ItemAction {
 
     public BlessCurseOwner(Creature _owner) {
         super(_owner);
-        this.owner = _owner;
     }
 }

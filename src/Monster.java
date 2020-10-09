@@ -1,7 +1,6 @@
 public class Monster extends Creature{
     private boolean visible;
-    private int posX;
-    private int posY;
+    private Point point;
     private int hp;
     private int hpm;
     private int maxHit;
@@ -11,8 +10,8 @@ public class Monster extends Creature{
     private CreatureAction da;
     private CreatureAction ha;
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String _name) {
+        name = _name;
     }
 
     public void setID (int _room, int _serial){
