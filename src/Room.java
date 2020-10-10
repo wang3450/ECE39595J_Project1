@@ -1,19 +1,23 @@
 import java.util.ArrayList; 
 public class Room extends structure{
     public Room(){super();}
-    private Point point; 
+    private Point point = new Point(0,0);
     private int height;
+    private int width;
     private String name;
-    private int room;
+    private int roomNum;
     private ArrayList<Creature> creatures = new ArrayList<Creature>();
     private ArrayList<Item> items = new ArrayList<Item>();
     private boolean visible;
     private int IntValue;
 
     public Room(String _name){name = _name;}
-    public void setId(int _room) {room = _room;}
+    public void setRoomNum(int _roomNum) {roomNum = _roomNum;}
     public void setCreature(Creature Monster){creatures.add(Monster);}
-
+    public void setVisible(boolean _visible){visible = _visible;}
+    public void setWidth(int _width){width = _width;}
+    public void setHeight(int _height){height = _height;}
+    public void setPoint(Point p){ point = p; }
 
     //getters
     public boolean getVisible(){return visible;}
@@ -22,6 +26,7 @@ public class Room extends structure{
 
 
     public void printAllValues(){
+        System.out.println("Room number: " + roomNum);
         System.out.println("Visible: " + visible);
         System.out.println("Point: " + point);
         if(point!=null) {
@@ -31,9 +36,10 @@ public class Room extends structure{
         else{
             System.out.println("Point is null");
         }
+        System.out.println("Width: " + width);
         System.out.println("Height: " + height);
-        System.out.println("Name: " + name);
-        System.out.println("Room number: " + room);
+
+
         for(Creature c : creatures){
             System.out.println("Creature Array: " + c);
         }

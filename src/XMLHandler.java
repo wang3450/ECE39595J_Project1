@@ -66,7 +66,7 @@ public class XMLHandler extends DefaultHandler{
         else if(qName.equalsIgnoreCase("Room")){
             int roomNum = Integer.parseInt(attributes.getValue("room"));
             Room room = new Room();
-            room.setIntValue(roomNum);
+            room.setRoomNum(roomNum);
             structures.add(room);
             s_parsed = room;
         }
@@ -141,6 +141,7 @@ public class XMLHandler extends DefaultHandler{
             int room2 = Integer.parseInt(attributes.getValue("room2"));
             Passage passage = new Passage();
             passage.setID(room1, room2);
+
             structures.add(passage);
             s_parsed = passage;
         }
@@ -152,11 +153,13 @@ public class XMLHandler extends DefaultHandler{
         else if(qName.equalsIgnoreCase("width")){width = true;}
         else if(qName.equalsIgnoreCase("height")){height = true;}
         else if(qName.equalsIgnoreCase("hp")){hp = true;}
-        else if(qName.equalsIgnoreCase("hpm")){hpm = true;}
+        else if(qName.equalsIgnoreCase("hpMoves")){hpm = true;}
         else if(qName.equalsIgnoreCase("maxhit")){maxhit = true;}
         else if(qName.equalsIgnoreCase("actionMessage")){actionMessage = true;}
         else if(qName.equalsIgnoreCase("actionIntValue")){actionIntVal = true;}
         else if(qName.equalsIgnoreCase("actionCharValue")){actionCharValue = true;}
+        else if(qName.equalsIgnoreCase("ItemIntValue")){ItemIntValue = true;}
+
         data = new StringBuilder();
     }
 
@@ -165,18 +168,18 @@ public class XMLHandler extends DefaultHandler{
         
         if(visible){
             if(s_parsed != null && i_parsed==null && c_parsed == null){
-                if(data.toString().equals("1")) {s_parsed.setVisible();}
-                else{s_parsed.setInvisible();}
+                if(data.toString().equals("1")) {s_parsed.setVisible(true);}
+                else{s_parsed.setVisible(false);}
                 visible = false;
             }
             else if(c_parsed != null && i_parsed==null){
-                if(data.toString().equals("1")) {c_parsed.setVisible();}
-                else{c_parsed.setInvisible();}
+                if(data.toString().equals("1")) {c_parsed.setVisible(true);}
+                else{c_parsed.setVisible(false);}
                 visible = false;
             }
             else if(i_parsed != null){
-                if(data.toString().equals("1")) {i_parsed.setVisible();}
-                else{i_parsed.setInvisible();}
+                if(data.toString().equals("1")) {i_parsed.setVisible(true);}
+                else{i_parsed.setVisible(false);}
                 visible = false;
             }
         }
@@ -201,6 +204,7 @@ public class XMLHandler extends DefaultHandler{
         else if(hpm){
             if(c_parsed != null){
                 c_parsed.setHpMove(Integer.parseInt(data.toString()));
+                System.out.println(data.toString());
                 hpm = false;
             }
         }
@@ -235,10 +239,14 @@ public class XMLHandler extends DefaultHandler{
                 ia_parsed.setCharValue(data.toString().charAt(0));
                 actionCharValue = false; 
             }
+            else if(ca_parsed != null){
+                ca_parsed.setCharValue(data.toString().charAt(0));
+                actionCharValue = false;
+            }
         }
         else if(ItemIntValue){
-            if(ia_parsed != null){
-                ia_parsed.setIntValue(Integer.parseInt(data.toString()));
+            if(i_parsed != null){
+                i_parsed.setIntValue(Integer.parseInt(data.toString()));
                 ItemIntValue = false;
             }
         }
@@ -273,7 +281,11 @@ public class XMLHandler extends DefaultHandler{
         else if(posY){
             if(s_parsed != null && i_parsed==null && c_parsed == null){
                 if(s_parsed instanceof Room){
+//                    System.out.println("Ppointer " + ppointer);
+//                    System.out.println("Room "+s_parsed);
                     ppointer.setY(Integer.parseInt(data.toString()));
+//                    System.out.println(ppointer.getX());
+//                    System.out.println(ppointer.getY());
                     s_parsed.setPoint(ppointer);
                     posY = false;
                 }
@@ -285,12 +297,12 @@ public class XMLHandler extends DefaultHandler{
             }
             else if(c_parsed != null && i_parsed == null){
                 ppointer.setY(Integer.parseInt(data.toString()));
-                s_parsed.setPoint(ppointer);
+                c_parsed.setPoint(ppointer);
                 posY = false;
             }
             else if(i_parsed != null){
                 ppointer.setY(Integer.parseInt(data.toString()));
-                s_parsed.setPoint(ppointer);
+                i_parsed.setPoint(ppointer);
                 posY = false;
             }
         }
@@ -309,5 +321,9 @@ public class XMLHandler extends DefaultHandler{
         else if(qName.equalsIgnoreCase("Player") || qName.equalsIgnoreCase("Monster")){
             c_parsed = null;
         }
+        else if(qName.equalsIgnoreCase("posY")){
+            ppointer = null;
+        }
+
     }    
 }

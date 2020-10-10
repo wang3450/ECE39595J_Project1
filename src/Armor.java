@@ -1,6 +1,6 @@
 public class Armor extends Item{
-    private int visible;
-    private Point point;
+    private boolean visible;
+    private Point point = new Point(0,0);
     private String name;
     private int roomLocation;
     private int serial;
@@ -9,11 +9,12 @@ public class Armor extends Item{
     public Armor(String _name){
         name = _name;
     }
-
+    public void setIntValue(int i){intValue = i;}
     public void setName(String _name) {
         name = _name;
     }
-
+    public void setVisible(boolean b){visible = b;}
+    public void setPoint(Point p) { point = p;}
     public void setID(int _room, int _serial){
         roomLocation = _room;
         serial = _serial;

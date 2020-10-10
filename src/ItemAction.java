@@ -18,7 +18,8 @@ public class ItemAction extends Action {
     public void setName(String _name){name = _name;}
     public void setType(String _type){type = _type;}
     public void setIntValue(int _intValue){intValue = _intValue;}
-
+    public void setCharValue(char c){charValue = c;}
+    public void setMessage(String s){message = s;}
     public void printAllValues(){
         System.out.println("Name: " + name);
         System.out.println("Type: " + type);

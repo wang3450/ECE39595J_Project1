@@ -8,7 +8,9 @@ public class CreatureAction extends Action {
 
     public void setName(String n){name = n;}
     public void setType(String t){type = t;}
-
+    public void setMessage(String s){message = s;}
+    public void setIntValue(int i){intValue = i;}
+    public void setCharValue(char c){charValue = c;}
     public CreatureAction (Creature owner){
         creature = owner;
     }

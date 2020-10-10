@@ -12,8 +12,7 @@ public class Displayable {
     private int height;
 
 
-    public void setInvisible(){this.visible = false;}
-    public void setVisible(){this.visible = true;}
+    public void setVisible(boolean _visible){visible = _visible;}
 
     public void setMaxHit(int maxHit) {
         MaxHit = maxHit;

@@ -5,24 +5,27 @@ public class Player extends Creature {
     private CreatureAction ha;
     private Item weapon;
     private Item armor;
-    private Point point;
+    private Point point = new Point(0,0);
     private int serial;
     private int room;
     private String name;
     private boolean visible;
+    private int maxHit;
 
     public void setRoom(int _room){room = _room;}
     public void setSerial(int _serial){serial = _serial;}
-
+    public void setVisible(boolean b){visible =b;}
     public void setWeapon(Item _weapon) {
         weapon = _weapon;
     }
-
+    public void setHp(int _hp){hp = _hp;}
+    public void setHpMove (int _hpm){hpm = _hpm;}
     public void setArmor(Item _armor) {
         armor = _armor;
     }
-    
+    public void setPoint(Point p){point = p;}
     public void setName(String n){name = n;}
+    public void setMaxHit(int mh){maxHit = mh;}
 
 
     public void printAllValues(){
@@ -43,5 +46,6 @@ public class Player extends Creature {
         System.out.println("Death Action: " + da);
         System.out.println("HP: " + hp);
         System.out.println("HPM: " + hpm);
+        System.out.println("Max Hit " +maxHit);
     }
 }

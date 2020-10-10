@@ -15,12 +15,13 @@ public class Passage extends structure {
         name = _name;
     }
     public void setPoints(Point p){points.add(p);}
-
+    public void setVisible(boolean b){visible =b;}
 
 
 
     public void printAllValues(){
-        System.out.println("Name: " + name);
+        System.out.println("Room number 1: " + room1);
+        System.out.println("Room number 2: " + room2);
         System.out.println("Visible: " + visible);
         for(Point p : points){
             System.out.println("Point Array Point: " + p);
@@ -31,8 +32,6 @@ public class Passage extends structure {
                 System.out.println("Point is null.");
             }
         }
-        System.out.println("Room number 1: " + room1);
-        System.out.println("Room number 2: " + room2);
 
 
     }

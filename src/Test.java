@@ -24,11 +24,17 @@ public class Test {
             SAXParser saxParser = saxParserFactory.newSAXParser();
             XMLHandler handler = new XMLHandler();
             saxParser.parse(new File(fileName), handler);
-            ArrayList<structure> structures = handler.getStructures();
-            ArrayList<Item> item = handler.getItem();
-            ArrayList<ItemAction> iAction = handler.getItemAction();
-            ArrayList<CreatureAction> cAction = handler.getCreatureAction();
-            ArrayList<Creature> creature = handler.getCreature();
+            ArrayList<structure> structures = new ArrayList<structure>();
+            ArrayList<Item> item = new ArrayList<Item>();
+            ArrayList<ItemAction> iAction = new ArrayList<ItemAction>();
+            ArrayList<CreatureAction> cAction = new ArrayList<CreatureAction>();
+            ArrayList<Creature> creature = new ArrayList<Creature>();
+
+            structures = handler.getStructures();
+            item = handler.getItem();
+            iAction = handler.getItemAction();
+            cAction = handler.getCreatureAction();
+            creature = handler.getCreature();
 
             int i;
             for(structure s : structures){

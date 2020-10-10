@@ -1,6 +1,6 @@
 public class Sword extends Item{
         private int visible;
-        private Point point;
+        private Point point = new Point(0,0);
         private String name;
         private int roomLocation;
         private int serial;
@@ -14,7 +14,7 @@ public class Sword extends Item{
             this.roomLocation = _room;
             this.serial = _serial;
         }
-
+        public void setPoint(Point p){point = p;}
 
 
     public void printAllValues(){

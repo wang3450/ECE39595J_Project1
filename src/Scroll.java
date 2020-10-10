@@ -2,8 +2,8 @@ public class Scroll extends Item {
     private int roomLocation;
     private int serial;
     private String name;
-    private int visible;
-    private Point point;
+    private boolean visible;
+    private Point point = new Point(0,0);
     private Creature c = new Creature();
     private ItemAction action = new ItemAction(c);
     //Need Item intvalue, item character value, and message from action
@@ -16,11 +16,11 @@ public class Scroll extends Item {
         roomLocation = room;
         serial = _serial;
     }
-
+    public void setVisible(boolean b){visible = b;}
     public void setMessage(String s){
         action.setMessage(s);
     }
-    
+    public void setPoint(Point p){point = p;}
     public String getAction(){
         return action.getMessage();
     }
