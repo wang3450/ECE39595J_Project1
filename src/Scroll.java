@@ -27,4 +27,23 @@ public class Scroll extends Item {
 
     public String getName(){return name;}
 
+
+
+    public void printAllValues(){
+        System.out.println("Name: " + name);
+        System.out.println("Visible: " + visible);
+        System.out.println("Room Location: " + roomLocation);
+        System.out.println("Serial: " + serial);
+        System.out.println("Point: " + point);
+        if(point != null) {
+            System.out.println("Point-X: " + point.getX());
+            System.out.println("Point-Y: " + point.getY());
+        }else{
+            System.out.println("Point is null.");
+        }
+        System.out.println("Creature: " + c);
+        System.out.println("ItemAction: " + action);
+
+    }
+
 }

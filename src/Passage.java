@@ -15,4 +15,25 @@ public class Passage extends structure {
         name = _name;
     }
     public void setPoints(Point p){points.add(p);}
+
+
+
+
+    public void printAllValues(){
+        System.out.println("Name: " + name);
+        System.out.println("Visible: " + visible);
+        for(Point p : points){
+            System.out.println("Point Array Point: " + p);
+            if(p!=null) {
+                System.out.println("Point-X: " + p.getX());
+                System.out.println("Point-Y: " + p.getY());
+            }else{
+                System.out.println("Point is null.");
+            }
+        }
+        System.out.println("Room number 1: " + room1);
+        System.out.println("Room number 2: " + room2);
+
+
+    }
 }

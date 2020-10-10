@@ -18,4 +18,20 @@ public class Armor extends Item{
         roomLocation = _room;
         serial = _serial;
     }
+
+    public void printAllValues(){
+        System.out.println("Name: " + name);
+        System.out.println("Visible: " + visible);
+        System.out.println("Room Location: " + roomLocation);
+        System.out.println("Serial: " + serial);
+        System.out.println("IntValue: " + intValue);
+        System.out.println("Point: " + point);
+        if(point!=null) {
+            System.out.println("Point-X: " + point.getX());
+            System.out.println("Point-Y: " + point.getY());
+        }else{
+            System.out.println("Point is null");
+        }
+
+    }
 }

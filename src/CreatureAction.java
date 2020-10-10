@@ -14,5 +14,14 @@ public class CreatureAction extends Action {
     }
 
     public CreatureAction(){}
+
+    public void printAllValues(){
+        System.out.println("Name: " + name);
+        System.out.println("Type: " + type);
+        System.out.println("Creature: " + creature);
+        System.out.println("Message: " + message);
+        System.out.println("IntValue: " + intValue);
+        System.out.println("CharValue: " + charValue);
+    }
     
 }

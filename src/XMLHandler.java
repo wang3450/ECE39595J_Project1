@@ -164,30 +164,30 @@ public class XMLHandler extends DefaultHandler{
     public void endElement(String uri, String localName, String qName) throws SAXException{
         
         if(visible){
-            if(s_parsed != null){
-                if(data.toString() == "1") {s_parsed.setVisible();}
+            if(s_parsed != null && i_parsed==null && c_parsed == null){
+                if(data.toString().equals("1")) {s_parsed.setVisible();}
                 else{s_parsed.setInvisible();}
                 visible = false;
             }
-            else if(i_parsed != null){
-                if(data.toString() == "1") {i_parsed.setVisible();}
-                else{i_parsed.setInvisible();}
+            else if(c_parsed != null && i_parsed==null){
+                if(data.toString().equals("1")) {c_parsed.setVisible();}
+                else{c_parsed.setInvisible();}
                 visible = false;
             }
-            else if(c_parsed != null){
-                if(data.toString() == "1") {c_parsed.setVisible();}
-                else{c_parsed.setInvisible();}
+            else if(i_parsed != null){
+                if(data.toString().equals("1")) {i_parsed.setVisible();}
+                else{i_parsed.setInvisible();}
                 visible = false;
             }
         }
         else if(width){
-            if(s_parsed != null){
+            if(s_parsed != null && i_parsed==null && c_parsed == null){
                 s_parsed.setWidth(Integer.parseInt(data.toString()));
                 width = false;
             }
         }
         else if(height){
-            if(s_parsed != null){
+            if(s_parsed != null && i_parsed==null && c_parsed == null){
                 s_parsed.setHeight(Integer.parseInt(data.toString()));
                 height = false;
             }
@@ -211,22 +211,22 @@ public class XMLHandler extends DefaultHandler{
             }
         }
         else if(actionMessage){
-            if(ia_parsed != null){
-                ia_parsed.setMessage(data.toString());
+            if(ca_parsed != null && ia_parsed==null){
+                ca_parsed.setMessage(data.toString());
                 actionMessage = false;
             }
-            else if(ca_parsed != null){
-                ca_parsed.setMessage(data.toString());
+            else if(ia_parsed != null){
+                ia_parsed.setMessage(data.toString());
                 actionMessage = false;
             }
         }
         else if(actionIntVal){
-            if(ia_parsed != null){
-                ia_parsed.setIntValue(Integer.parseInt(data.toString()));
+            if(ca_parsed != null && ia_parsed == null){
+                ca_parsed.setIntValue(Integer.parseInt(data.toString()));
                 actionIntVal = false;
             }
-            else if(ca_parsed != null){
-                ca_parsed.setIntValue(Integer.parseInt(data.toString()));
+            else if(ia_parsed != null){
+                ia_parsed.setIntValue(Integer.parseInt(data.toString()));
                 actionIntVal = false;
             }
         }
@@ -243,7 +243,7 @@ public class XMLHandler extends DefaultHandler{
             }
         }
         else if(posX){
-            if(s_parsed != null){
+            if(s_parsed != null && i_parsed==null && c_parsed == null){
                 if(s_parsed instanceof Room){
                     Point pointy = new Point(Integer.parseInt(data.toString()),0);
                     points.add(pointy);
@@ -257,7 +257,7 @@ public class XMLHandler extends DefaultHandler{
                     posX = false;
                 }
             }
-            else if(c_parsed != null){
+            else if(c_parsed != null && i_parsed==null){
                 Point cpoint = new Point(Integer.parseInt(data.toString()),0);
                 points.add(cpoint);
                 ppointer = cpoint;
@@ -271,7 +271,7 @@ public class XMLHandler extends DefaultHandler{
             }
         }
         else if(posY){
-            if(s_parsed != null){
+            if(s_parsed != null && i_parsed==null && c_parsed == null){
                 if(s_parsed instanceof Room){
                     ppointer.setY(Integer.parseInt(data.toString()));
                     s_parsed.setPoint(ppointer);
@@ -283,7 +283,7 @@ public class XMLHandler extends DefaultHandler{
                     posY = false;
                 }
             }
-            else if(c_parsed != null){
+            else if(c_parsed != null && i_parsed == null){
                 ppointer.setY(Integer.parseInt(data.toString()));
                 s_parsed.setPoint(ppointer);
                 posY = false;
