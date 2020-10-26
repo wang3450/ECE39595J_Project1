@@ -78,6 +78,7 @@ public class XMLHandler extends DefaultHandler{
             scroll.setID(scrollNum, scrollSerial);
             item.add(scroll);
             i_parsed = scroll;
+            s_parsed.addItem(scroll);
         }
         else if(qName.equalsIgnoreCase("Player")){
             String playerName = attributes.getValue("name");
@@ -89,6 +90,7 @@ public class XMLHandler extends DefaultHandler{
             player.setSerial(playerSerial);
             creature.add(player);
             c_parsed = player;
+            s_parsed.addCreature(player);
         }
         else if(qName.equalsIgnoreCase("ItemAction")){
             String itemActionName = attributes.getValue("name");
@@ -98,6 +100,7 @@ public class XMLHandler extends DefaultHandler{
             itemAction.setType(itemActionType);
             iAction.add(itemAction);
             ia_parsed = itemAction;
+            if(i_parsed != null) {i_parsed.setItemAction(itemAction);}
         }
         else if(qName.equalsIgnoreCase("CreatureAction")){
             String creatureActionName = attributes.getValue("name");
@@ -107,6 +110,7 @@ public class XMLHandler extends DefaultHandler{
             creatureAction.setType(creatureActionType);
             cAction.add(creatureAction);
             ca_parsed = creatureAction;
+            if(c_parsed != null){c_parsed.setCreatureActions(creatureAction);}
         }
         else if(qName.equalsIgnoreCase("Sword")){
             String swordName = attributes.getValue("name");
@@ -116,6 +120,8 @@ public class XMLHandler extends DefaultHandler{
             sword.setID(swordRoom, swordSerial);
             item.add(sword);
             i_parsed = sword;
+            if(c_parsed != null){c_parsed.setWeapon(sword);}
+            else{s_parsed.addItem(sword);}
         }
         else if(qName.equalsIgnoreCase("Monster")){
             String monsterName = attributes.getValue("name");
@@ -126,6 +132,7 @@ public class XMLHandler extends DefaultHandler{
             monster.setID(monsterRoom, monsterSerial);
             creature.add(monster);
             c_parsed = monster;
+            s_parsed.addCreature(monster);
         }
         else if(qName.equalsIgnoreCase("Armor")){
             String armorName = attributes.getValue("name");
@@ -135,6 +142,9 @@ public class XMLHandler extends DefaultHandler{
             armor.setID(armorRoom, armorSerial);
             item.add(armor);
             i_parsed = armor;
+            if(c_parsed != null) {c_parsed.setArmor(armor);}
+            else{s_parsed.addItem(armor);}
+
         }
         else if(qName.equalsIgnoreCase("Passage")){
             int room1 = Integer.parseInt(attributes.getValue("room1"));
@@ -281,11 +291,7 @@ public class XMLHandler extends DefaultHandler{
         else if(posY){
             if(s_parsed != null && i_parsed==null && c_parsed == null){
                 if(s_parsed instanceof Room){
-//                    System.out.println("Ppointer " + ppointer);
-//                    System.out.println("Room "+s_parsed);
                     ppointer.setY(Integer.parseInt(data.toString()));
-//                    System.out.println(ppointer.getX());
-//                    System.out.println(ppointer.getY());
                     s_parsed.setPoint(ppointer);
                     posY = false;
                 }

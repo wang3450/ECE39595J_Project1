@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Player extends Creature {
     private int hp;
     private int hpm;
@@ -11,6 +13,7 @@ public class Player extends Creature {
     private String name;
     private boolean visible;
     private int maxHit;
+    private ArrayList<CreatureAction> creatureActions = new ArrayList<CreatureAction>();
 
     public void setRoom(int _room){room = _room;}
     public void setSerial(int _serial){serial = _serial;}
@@ -18,14 +21,15 @@ public class Player extends Creature {
     public void setWeapon(Item _weapon) {
         weapon = _weapon;
     }
-    public void setHp(int _hp){hp = _hp;}
-    public void setHpMove (int _hpm){hpm = _hpm;}
     public void setArmor(Item _armor) {
         armor = _armor;
     }
+    public void setHp(int _hp){hp = _hp;}
+    public void setHpMove (int _hpm){hpm = _hpm;}
     public void setPoint(Point p){point = p;}
     public void setName(String n){name = n;}
     public void setMaxHit(int mh){maxHit = mh;}
+    public void setCreatureActions(CreatureAction ca){creatureActions.add(ca);}
 
 
     public void printAllValues(){
@@ -47,5 +51,9 @@ public class Player extends Creature {
         System.out.println("HP: " + hp);
         System.out.println("HPM: " + hpm);
         System.out.println("Max Hit " +maxHit);
+        for(CreatureAction ca: creatureActions){
+            System.out.println(ca);
+        }
+
     }
 }

@@ -18,6 +18,8 @@ public class Room extends structure{
     public void setWidth(int _width){width = _width;}
     public void setHeight(int _height){height = _height;}
     public void setPoint(Point p){ point = p; }
+    public void addItem(Item i){items.add(i);}
+    public void addCreature(Creature c) {creatures.add(c);}
 
     //getters
     public boolean getVisible(){return visible;}

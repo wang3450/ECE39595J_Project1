@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Monster extends Creature{
     private boolean visible;
     private Point point = new Point(0,0);
@@ -7,8 +9,7 @@ public class Monster extends Creature{
     private String name;
     private int room_location;
     private int serial;
-    private CreatureAction da;
-    private CreatureAction ha;
+    private ArrayList<CreatureAction> creatureActions = new ArrayList<CreatureAction>();
 
     public void setName(String _name) {
         name = _name;
@@ -19,9 +20,10 @@ public class Monster extends Creature{
     public void setHpMove(int _hpm){hpm = _hpm;}
     public void setMaxHit(int _maxHit){maxHit = _maxHit;}
     public void setID (int _room, int _serial){
-        this.room_location = _room;
-        this.serial = _serial;
+        room_location = _room;
+        serial = _serial;
     }
+    public void setCreatureActions(CreatureAction ca){creatureActions.add(ca);}
 
 
 
@@ -37,8 +39,9 @@ public class Monster extends Creature{
         }else{
             System.out.println("Point is null.");
         }
-        System.out.println("Hit Action: " + ha);
-        System.out.println("Death Action: " + da);
+        for(CreatureAction ca: creatureActions){
+            System.out.println(ca);
+        }
         System.out.println("HP: " + hp);
         System.out.println("MaxHit: " + maxHit);
     }
