@@ -17,6 +17,8 @@ public class Passage extends structure {
     public void setPoints(Point p){points.add(p);}
     public void setVisible(boolean b){visible =b;}
 
+    public ArrayList<Point> getPoints(){return points;}
+
 
 
     public void printAllValues(){

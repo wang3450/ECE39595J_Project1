@@ -1,99 +1,48 @@
-import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.SAXException;
+public class Test implements Runnable {
 
-public class Test {
-    public static void main(String[] args){
-        String fileName = null;
-        switch(args.length){
-            case 1:
-                fileName = "xmlFiles/"+args[0];
-                break;
-            default:
-                System.out.println("Invalid Argument");
-                return;
-        }
+    private static final int DEBUG = 0;
+    private boolean isRunning;
+    public static final int FRAMESPERSECOND = 60;
+    public static final int TIMEPERLOOP = 1000000000 / FRAMESPERSECOND;
+    private static ObjectDisplayGrid displayGrid = null;
+    private Thread keyStrokePrinter;
+    private static final int WIDTH = 80;
+    private static final int HEIGHT = 40;
 
-        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-        try{
-            SAXParser saxParser = saxParserFactory.newSAXParser();
-            XMLHandler handler = new XMLHandler();
-            saxParser.parse(new File(fileName), handler);
-            ArrayList<structure> structures = new ArrayList<structure>();
-            ArrayList<Item> item = new ArrayList<Item>();
-            ArrayList<ItemAction> iAction = new ArrayList<ItemAction>();
-            ArrayList<CreatureAction> cAction = new ArrayList<CreatureAction>();
-            ArrayList<Creature> creature = new ArrayList<Creature>();
+    public Test(int width, int height) {
+        displayGrid = new ObjectDisplayGrid(width, height);
+    }
 
-            structures = handler.getStructures();
-            item = handler.getItem();
-            iAction = handler.getItemAction();
-            cAction = handler.getCreatureAction();
-            creature = handler.getCreature();
-
-            int i;
-            for(structure s : structures){
-                if(s instanceof Room){
-                    System.out.println(s);
-                    ((Room) s).printAllValues();
-                    System.out.println("\n");
-                }
-                else if (s instanceof Passage){
-                    System.out.println(s);
-                    ((Passage) s).printAllValues();
-                    System.out.println("\n");
-                }
-                
-            }
-
-            for(Item it: item){
-                if(it instanceof Armor){
-                    System.out.println(it);
-                    ((Armor) it).printAllValues();
-                    System.out.println("\n");
-                }
-                else if (it instanceof Scroll){
-                    System.out.println(it);
-                    ((Scroll) it).printAllValues();
-                    System.out.println("\n");
-                }
-                else if(it instanceof Sword){
-                    System.out.println(it);
-                    ((Sword) it).printAllValues();
-                    System.out.println("\n");
+    @Override
+    public void run() {
+        //displayGrid.fireUp();
+        for (int step = 1; step < WIDTH / 2; step *= 2) {
+            for (int i = 0; i < WIDTH; i += step) {
+                for (int j = 0; j < HEIGHT; j += step) {
+                    displayGrid.addObjectToDisplay(new Char('X'), i, j);
                 }
             }
 
-            for(ItemAction ia :iAction){
-                System.out.println(ia);
-                ia.printAllValues();
-                System.out.println("\n");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace(System.err);
             }
-
-            for(CreatureAction ca: cAction){
-                System.out.println(ca);
-                ca.printAllValues();
-                System.out.println("\n");
-            }
-            for(Creature c: creature){
-                System.out.println(c);
-                if(c instanceof Player){
-                    ((Player) c).printAllValues();
-                    System.out.println("\n");
-                }
-                else if (c instanceof Monster){
-                    ((Monster) c).printAllValues();
-                    System.out.println("\n");
-                }
-            }
-        } catch (ParserConfigurationException | SAXException | IOException e){
-            e.printStackTrace(System.out);
+            //displayGrid.initializeDisplay();
         }
     }
-        
+
+    public static void main(String[] args) throws Exception {
+
+        Test test = new Test(WIDTH, HEIGHT);
+        Thread testThread = new Thread(test);
+        testThread.start();
+
+        test.keyStrokePrinter = new Thread(new KeyStrokePrinter(displayGrid));
+        test.keyStrokePrinter.start();
+
+        testThread.join();
+        test.keyStrokePrinter.join();
+    }
 }

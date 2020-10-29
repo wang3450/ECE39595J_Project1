@@ -25,6 +25,8 @@ public class Monster extends Creature{
     }
     public void setCreatureActions(CreatureAction ca){creatureActions.add(ca);}
 
+    public Point getPoint(){return point;}
+    public String getName(){return name;}
 
 
     public void printAllValues(){

@@ -15,6 +15,7 @@ public class Sword extends Item{
             this.serial = _serial;
         }
         public void setPoint(Point p){point = p;}
+        public Point getPoint(){return point;}
 
 
     public void printAllValues(){

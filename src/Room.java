@@ -24,6 +24,10 @@ public class Room extends structure{
     //getters
     public boolean getVisible(){return visible;}
     public Point getPoint(){return point;}
+    public int getWidth(){return width;}
+    public int getHeight(){return height;}
+    public ArrayList<Item> getItems(){return items;}
+    public ArrayList<Creature> getCreatures(){return creatures;}
 
 
 

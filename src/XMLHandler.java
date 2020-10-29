@@ -31,7 +31,7 @@ public class XMLHandler extends DefaultHandler{
 
     public XMLHandler(){}
 
-    private Dungeon dungeon = new Dungeon("",0,0);
+    private Dungeon dungeon = new Dungeon("",0,0, 0, 0 );
     
     private ArrayList<structure> structures = new ArrayList<structure>();
     private ArrayList<Item> item = new ArrayList<Item>();
@@ -59,9 +59,13 @@ public class XMLHandler extends DefaultHandler{
             String dungName = attributes.getValue("name");
             int dungWidth = Integer.parseInt(attributes.getValue("width"));
             int dungGameHeight = Integer.parseInt(attributes.getValue("gameHeight"));
+            int topHeight = Integer.parseInt(attributes.getValue("topHeight"));
+            int bottomHeight = Integer.parseInt(attributes.getValue("bottomHeight"));
             dungeon.setName(dungName);
             dungeon.setWidth(dungWidth);
             dungeon.setGameHeight(dungGameHeight);
+            dungeon.setTopHeight(topHeight);
+            dungeon.setBottomHeight(bottomHeight);
         }
         else if(qName.equalsIgnoreCase("Room")){
             int roomNum = Integer.parseInt(attributes.getValue("room"));
@@ -214,7 +218,6 @@ public class XMLHandler extends DefaultHandler{
         else if(hpm){
             if(c_parsed != null){
                 c_parsed.setHpMove(Integer.parseInt(data.toString()));
-                System.out.println(data.toString());
                 hpm = false;
             }
         }

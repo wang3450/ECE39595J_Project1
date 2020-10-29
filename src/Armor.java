@@ -20,6 +20,9 @@ public class Armor extends Item{
         serial = _serial;
     }
 
+    public Point getPoint(){return point;}
+
+
     public void printAllValues(){
         System.out.println("Name: " + name);
         System.out.println("Visible: " + visible);

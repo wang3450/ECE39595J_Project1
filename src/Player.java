@@ -31,6 +31,7 @@ public class Player extends Creature {
     public void setMaxHit(int mh){maxHit = mh;}
     public void setCreatureActions(CreatureAction ca){creatureActions.add(ca);}
 
+    public Point getPoint(){return point;}
 
     public void printAllValues(){
         System.out.println("Name: " + name);
