@@ -9,6 +9,7 @@ import org.xml.sax.SAXException;
 
 public class Rogue{
 
+
     //field vars
     private boolean isRunning;
     public static final int FRAMESPERSECOND = 60;
@@ -18,7 +19,7 @@ public class Rogue{
     private static final int HEIGHT = 40;
     private Dungeon dungeon = null;
     private ArrayList<structure> structures = new ArrayList<structure>();
-
+    private static KeyStrokePrinter keystroke;
     //constructor
     public Rogue(int width, int height) { displayGrid = new ObjectDisplayGrid(width, height);}
 
@@ -54,11 +55,12 @@ public class Rogue{
         return topHeight;
     }
 
-    public void drawRoom(structure s, int topHeight){
+    public void drawRoom(structure s, int topHeight, int bottomHeight){
         int x;
         int y;
         int width;
         int height;
+        //Player returnPlayer = null;
         Room r = (Room) s;
 
         width = r.getWidth();
@@ -116,6 +118,12 @@ public class Rogue{
                 int a = player.getPoint().getX() + r.getPoint().getX();
                 int b = player.getPoint().getY() + r.getPoint().getY() + topHeight;
                 displayGrid.addObjectToDisplay(new Char('@'), a, b);
+                int hp = player.getHp();
+                int unit = hp/10 + 48;
+                hp += 48;
+                displayGrid.addObjectToDisplay(new Char((char) unit), 3,0);
+                displayGrid.addObjectToDisplay(new Char((char) hp ), 4,0);
+                //returnPlayer = player;
             }
             else if(c instanceof Monster){
                 Monster monster = (Monster) c;
@@ -136,13 +144,39 @@ public class Rogue{
                 }
             }
         }
+        displayGrid.addObjectToDisplay(new Char('H'), 0,0);
+        displayGrid.addObjectToDisplay(new Char('P'), 1,0);
+        displayGrid.addObjectToDisplay(new Char(':'), 2,0);
+
+        displayGrid.addObjectToDisplay(new Char('S'), 6,0);
+        displayGrid.addObjectToDisplay(new Char('c'), 7,0);
+        displayGrid.addObjectToDisplay(new Char('o'), 8,0);
+        displayGrid.addObjectToDisplay(new Char('r'), 9,0);
+        displayGrid.addObjectToDisplay(new Char('e'), 10,0);
+        displayGrid.addObjectToDisplay(new Char(':'), 11,0);
+        displayGrid.addObjectToDisplay(new Char('0'), 12,0); //change later
+
+        displayGrid.addObjectToDisplay(new Char('P'), 0,HEIGHT - bottomHeight + 1);
+        displayGrid.addObjectToDisplay(new Char('a'), 1,HEIGHT - bottomHeight + 1);
+        displayGrid.addObjectToDisplay(new Char('c'), 2,HEIGHT - bottomHeight + 1);
+        displayGrid.addObjectToDisplay(new Char('k'), 3,HEIGHT - bottomHeight + 1);
+        displayGrid.addObjectToDisplay(new Char(':'), 4,HEIGHT - bottomHeight + 1);
+
+        displayGrid.addObjectToDisplay(new Char('I'), 0,HEIGHT - 1);
+        displayGrid.addObjectToDisplay(new Char('n'), 1,HEIGHT - 1);
+        displayGrid.addObjectToDisplay(new Char('f'), 2,HEIGHT - 1);
+        displayGrid.addObjectToDisplay(new Char('o'), 3,HEIGHT - 1);
+        displayGrid.addObjectToDisplay(new Char(':'), 4,HEIGHT - 1);
+
+
+
     }
 
     public void drawPassage(structure s, int topheight){
         Passage passage = (Passage) s;
         ArrayList<Point> points = passage.getPoints();
         int count = points.size();
-        System.out.println(count);
+
 
         for(int j = 0; j < count-1; j++){
 
@@ -195,7 +229,8 @@ public class Rogue{
                 System.out.println("Invalid Argument");
                 return;
         }
-
+        Player player = null;
+        Room room = null;
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
@@ -209,14 +244,29 @@ public class Rogue{
             int topHeight = rogue.drawDungeon(dungeon);
 
             for(structure s: structures){
-                System.out.println(s);
+
                 if(s instanceof Room){
-                    rogue.drawRoom(s, topHeight);
+                    rogue.drawRoom(s, topHeight, dungeon.getBottomHeight());
+                    Room r = (Room) s;
+                    for(Creature c: r.getCreatures()){
+
+                        if(c instanceof Player){
+                            player = (Player) c;
+                            room = (Room) s;
+                        }
+                    }
                 }
                 else if(s instanceof Passage){
                     rogue.drawPassage(s, topHeight);
                 }
             }
+
+
+            Point point = new Point(player.getPoint().getX() + room.getPoint().getX(), player.getPoint().getY() + topHeight + room.getPoint().getY());
+            player.setPoint(point);
+            keystroke = new KeyStrokePrinter(displayGrid, player);
+            displayGrid.registerInputObserver(keystroke);
+
 
 
 

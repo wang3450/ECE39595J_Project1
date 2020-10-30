@@ -32,6 +32,7 @@ public class Player extends Creature {
     public void setCreatureActions(CreatureAction ca){creatureActions.add(ca);}
 
     public Point getPoint(){return point;}
+    public int getHp(){return hp;}
 
     public void printAllValues(){
         System.out.println("Name: " + name);

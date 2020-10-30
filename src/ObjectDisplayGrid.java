@@ -20,6 +20,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
     private static int height;
     private static int width;
 
+    public Stack<Char>[][] getObjectGrid(){return objectGrid;}
+
     public ObjectDisplayGrid(int _width, int _height) {
         width = _width;
         height = _height;
@@ -67,7 +69,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
 
     private void notifyInputObservers(char ch) {
         for (InputObserver observer : inputObservers) {
-            observer.observerUpdate(ch);
+            boolean flag = observer.observerUpdate(ch);
             if (DEBUG > 0) {
                 System.out.println(CLASSID + ".notifyInputObserver " + ch);
             }

@@ -35,14 +35,14 @@ public class Test implements Runnable {
 
     public static void main(String[] args) throws Exception {
 
-        Test test = new Test(WIDTH, HEIGHT);
-        Thread testThread = new Thread(test);
-        testThread.start();
-
-        test.keyStrokePrinter = new Thread(new KeyStrokePrinter(displayGrid));
-        test.keyStrokePrinter.start();
-
-        testThread.join();
-        test.keyStrokePrinter.join();
+//        Test test = new Test(WIDTH, HEIGHT);
+//        Thread testThread = new Thread(test);
+//        testThread.start();
+//
+//        test.keyStrokePrinter = new Thread(new KeyStrokePrinter(displayGrid));
+//        test.keyStrokePrinter.start();
+//
+//        testThread.join();
+//        test.keyStrokePrinter.join();
     }
 }
