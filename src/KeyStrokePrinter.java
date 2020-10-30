@@ -32,6 +32,10 @@ public class KeyStrokePrinter implements InputObserver {
         else if(ch == 'h' || ch == 'a'){
             if(displayGrid.getObjectGrid()[x-1][y].peek().getChar() == 'x')
                 return false;
+            else if(displayGrid.getObjectGrid()[x-1][y].peek().getChar() == ' '){
+                System.out.println("invalid left");
+                return false;
+            }
             else {
                 displayGrid.removeObjectFromDisplay(new Char('t'), x, y);
                 x -= 1;
@@ -41,6 +45,10 @@ public class KeyStrokePrinter implements InputObserver {
         else if(ch == 'l' || ch == 'd'){
             if(displayGrid.getObjectGrid()[x+1][y].peek().getChar() == 'x')
                 return false;
+            else if(displayGrid.getObjectGrid()[x+1][y].peek().getChar() == ' '){
+                System.out.println("invalid right");
+                return false;
+            }
             else {
                 displayGrid.removeObjectFromDisplay(new Char('t'), x, y);
                 x += 1;
@@ -50,6 +58,10 @@ public class KeyStrokePrinter implements InputObserver {
         else if(ch == 'j' || ch == 's'){
             if(displayGrid.getObjectGrid()[x][y+1].peek().getChar() == 'x')
                 return false;
+            else if(displayGrid.getObjectGrid()[x][y+1].peek().getChar() == ' '){
+                System.out.println("invalid down");
+                return false;
+            }
             else {
                 displayGrid.removeObjectFromDisplay(new Char('t'), x, y);
                 y += 1;
@@ -59,6 +71,10 @@ public class KeyStrokePrinter implements InputObserver {
         else if(ch == 'k' || ch == 'w'){
             if(displayGrid.getObjectGrid()[x][y-1].peek().getChar() == 'x')
                 return false;
+            else if(displayGrid.getObjectGrid()[x][y-1].peek().getChar() == ' '){
+                System.out.println("invalid up");
+                return false;
+            }
             else {
                 displayGrid.removeObjectFromDisplay(new Char('t'), x, y);
                 y -= 1;

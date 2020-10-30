@@ -72,6 +72,11 @@ public class Rogue{
 
         int tempX = x;
         int tempY = y;
+        for(int l = tempX; l < tempX + width; l++){
+            for(int m = tempY; m <= tempY + height - 1; m++){
+                displayGrid.addObjectToDisplay(new Char('.'), l, m);
+            }
+        }
 
         for(y = tempY; y < tempY + height; y++){
             displayGrid.addObjectToDisplay(new Char('x'), x, y);
