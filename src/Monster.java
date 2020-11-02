@@ -30,6 +30,8 @@ public class Monster extends Creature{
     public String getName(){return name;}
     public void setChar(Char ch){ displayChar = ch;}
     public Char getChar(){return displayChar;}
+    public int getMaxHit(){return maxHit;}
+    public int getHp(){return hp;}
 
 
     public void printAllValues(){

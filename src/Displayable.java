@@ -53,4 +53,6 @@ public class Displayable {
 
     public void setChar(Char ch){displayChar = ch;}
     public Char getChar(){return displayChar;}
+    public int getMaxHit(){return MaxHit;}
+    public int getHp(){return Hp;}
 }

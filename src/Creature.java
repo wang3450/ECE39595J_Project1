@@ -15,6 +15,8 @@ public class Creature extends Displayable {
     public Creature(Char ch){super(ch);}
     public Creature(){}
     public Char getChar(){return displayChar;}
+    public int getMaxHit(){return maxHit;}
+    public int getHp(){return Hp;}
     @Override
     public void setHp(int _hp){Hp = _hp;}
 
