@@ -124,10 +124,24 @@ public class Rogue{
                 int b = player.getPoint().getY() + r.getPoint().getY() + topHeight;
                 displayGrid.addObjectToDisplay(new Char('@'), a, b);
                 int hp = player.getHp();
-                int unit = hp/10 + 48;
-                hp += 48;
-                displayGrid.addObjectToDisplay(new Char((char) unit), 3,0);
-                displayGrid.addObjectToDisplay(new Char((char) hp ), 4,0);
+                int hundreds = hp / 10;
+                int tens = 0;
+                int ones = 0;
+
+                if (hundreds == 10){
+                    hundreds = hundreds / 10 + 48;
+                    tens = 0 + 48;
+                    ones = 0 + 48;
+                }else{
+                    hundreds = 0 + 48;
+                    tens = hp / 10 + 48;
+                    ones = hp % 10 + 48;
+                }
+
+
+                displayGrid.addObjectToDisplay(new Char((char) hundreds), 3,0);
+                displayGrid.addObjectToDisplay(new Char((char) tens ), 4,0);
+                displayGrid.addObjectToDisplay(new Char((char) ones ), 5,0);
                 //returnPlayer = player;
             }
             else if(c instanceof Monster){
@@ -153,13 +167,13 @@ public class Rogue{
         displayGrid.addObjectToDisplay(new Char('P'), 1,0);
         displayGrid.addObjectToDisplay(new Char(':'), 2,0);
 
-        displayGrid.addObjectToDisplay(new Char('S'), 6,0);
-        displayGrid.addObjectToDisplay(new Char('c'), 7,0);
-        displayGrid.addObjectToDisplay(new Char('o'), 8,0);
-        displayGrid.addObjectToDisplay(new Char('r'), 9,0);
-        displayGrid.addObjectToDisplay(new Char('e'), 10,0);
-        displayGrid.addObjectToDisplay(new Char(':'), 11,0);
-        displayGrid.addObjectToDisplay(new Char('0'), 12,0); //change later
+        displayGrid.addObjectToDisplay(new Char('S'), 7,0);
+        displayGrid.addObjectToDisplay(new Char('c'), 8,0);
+        displayGrid.addObjectToDisplay(new Char('o'), 9,0);
+        displayGrid.addObjectToDisplay(new Char('r'), 10,0);
+        displayGrid.addObjectToDisplay(new Char('e'), 11,0);
+        displayGrid.addObjectToDisplay(new Char(':'), 12,0);
+        displayGrid.addObjectToDisplay(new Char('0'), 13,0); //change later
 
         displayGrid.addObjectToDisplay(new Char('P'), 0,HEIGHT - bottomHeight + 1);
         displayGrid.addObjectToDisplay(new Char('a'), 1,HEIGHT - bottomHeight + 1);
