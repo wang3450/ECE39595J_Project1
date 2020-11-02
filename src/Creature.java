@@ -10,9 +10,11 @@ public class Creature extends Displayable {
     private CreatureAction hitAction;
     private Item weapon;
     private Item armor;
+    private Char displayChar;
 
-    public Creature(){super();}
-
+    public Creature(Char ch){super(ch);}
+    public Creature(){}
+    public Char getChar(){return displayChar;}
     @Override
     public void setHp(int _hp){Hp = _hp;}
 

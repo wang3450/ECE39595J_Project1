@@ -14,6 +14,7 @@ public class Player extends Creature {
     private boolean visible;
     private int maxHit;
     private ArrayList<CreatureAction> creatureActions = new ArrayList<CreatureAction>();
+    private Char displayChar = new Char('@');
 
     public void setRoom(int _room){room = _room;}
     public void setSerial(int _serial){serial = _serial;}
@@ -31,8 +32,11 @@ public class Player extends Creature {
     public void setMaxHit(int mh){maxHit = mh;}
     public void setCreatureActions(CreatureAction ca){creatureActions.add(ca);}
 
+    public Player(){}
     public Point getPoint(){return point;}
     public int getHp(){return hp;}
+    public int getMaxHit(){return maxHit;}
+    public Char getChar(){return displayChar;}
 
     public void printAllValues(){
         System.out.println("Name: " + name);

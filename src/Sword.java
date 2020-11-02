@@ -5,6 +5,7 @@ public class Sword extends Item{
         private int roomLocation;
         private int serial;
         private int IntValue;
+        private Char displayChar = new Char(')');
 
         public Sword(String _name){
             name = _name;
@@ -16,7 +17,7 @@ public class Sword extends Item{
         }
         public void setPoint(Point p){point = p;}
         public Point getPoint(){return point;}
-
+        public Char getChar(){return displayChar;}
 
     public void printAllValues(){
         System.out.println("Name: " + name);

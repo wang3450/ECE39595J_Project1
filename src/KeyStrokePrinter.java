@@ -11,6 +11,9 @@ public class KeyStrokePrinter implements InputObserver {
     private Player player;
     private int x;
     private int y;
+    private int maxHit;
+    private Displayable movePlayer = null;
+
     public KeyStrokePrinter(ObjectDisplayGrid grid, Player _player) {
         //inputQueue = new ConcurrentLinkedQueue<>();
         displayGrid = grid;
@@ -30,55 +33,39 @@ public class KeyStrokePrinter implements InputObserver {
             return false;
         }
         else if(ch == 'h' || ch == 'a'){
-            if(displayGrid.getObjectGrid()[x-1][y].peek().getChar() == 'x')
+            if(displayGrid.getObjectGrid()[x-1][y].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x-1][y].peek().getChar().getChar() == ' ')
                 return false;
-            else if(displayGrid.getObjectGrid()[x-1][y].peek().getChar() == ' '){
-                System.out.println("invalid left");
-                return false;
-            }
             else {
-                displayGrid.removeObjectFromDisplay(new Char('t'), x, y);
+                movePlayer = displayGrid.removeObjectFromDisplay(x, y);
+                displayGrid.addObjectToDisplay(movePlayer, x - 1, y);
                 x -= 1;
-                displayGrid.addObjectToDisplay(new Char('@'), x, y);
             }
         }
         else if(ch == 'l' || ch == 'd'){
-            if(displayGrid.getObjectGrid()[x+1][y].peek().getChar() == 'x')
+            if(displayGrid.getObjectGrid()[x+1][y].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x+1][y].peek().getChar().getChar() == ' ')
                 return false;
-            else if(displayGrid.getObjectGrid()[x+1][y].peek().getChar() == ' '){
-                System.out.println("invalid right");
-                return false;
-            }
             else {
-                displayGrid.removeObjectFromDisplay(new Char('t'), x, y);
+                movePlayer = displayGrid.removeObjectFromDisplay(x, y);
+                displayGrid.addObjectToDisplay(movePlayer, x + 1, y);
                 x += 1;
-                displayGrid.addObjectToDisplay(new Char('@'), x, y);
             }
         }
         else if(ch == 'j' || ch == 's'){
-            if(displayGrid.getObjectGrid()[x][y+1].peek().getChar() == 'x')
+            if(displayGrid.getObjectGrid()[x][y+1].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x][y+1].peek().getChar().getChar() == ' ')
                 return false;
-            else if(displayGrid.getObjectGrid()[x][y+1].peek().getChar() == ' '){
-                System.out.println("invalid down");
-                return false;
-            }
             else {
-                displayGrid.removeObjectFromDisplay(new Char('t'), x, y);
+                movePlayer = displayGrid.removeObjectFromDisplay(x, y);
+                displayGrid.addObjectToDisplay(movePlayer, x, y + 1);
                 y += 1;
-                displayGrid.addObjectToDisplay(new Char('@'), x, y);
             }
         }
         else if(ch == 'k' || ch == 'w'){
-            if(displayGrid.getObjectGrid()[x][y-1].peek().getChar() == 'x')
+            if(displayGrid.getObjectGrid()[x][y-1].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x][y-1].peek().getChar().getChar() == ' ')
                 return false;
-            else if(displayGrid.getObjectGrid()[x][y-1].peek().getChar() == ' '){
-                System.out.println("invalid up");
-                return false;
-            }
             else {
-                displayGrid.removeObjectFromDisplay(new Char('t'), x, y);
+                movePlayer = displayGrid.removeObjectFromDisplay(x, y);
+                displayGrid.addObjectToDisplay(movePlayer, x, y - 1);
                 y -= 1;
-                displayGrid.addObjectToDisplay(new Char('@'), x, y);
             }
         }
 

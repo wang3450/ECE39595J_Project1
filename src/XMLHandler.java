@@ -92,6 +92,7 @@ public class XMLHandler extends DefaultHandler{
             player.setName(playerName);
             player.setRoom(playerRoom);
             player.setSerial(playerSerial);
+            player.setChar(new Char('@'));
             creature.add(player);
             c_parsed = player;
             s_parsed.addCreature(player);

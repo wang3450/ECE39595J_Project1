@@ -10,6 +10,7 @@ public class Monster extends Creature{
     private int room_location;
     private int serial;
     private ArrayList<CreatureAction> creatureActions = new ArrayList<CreatureAction>();
+    private Char displayChar;
 
     public void setName(String _name) {
         name = _name;
@@ -27,6 +28,8 @@ public class Monster extends Creature{
 
     public Point getPoint(){return point;}
     public String getName(){return name;}
+    public void setChar(Char ch){ displayChar = ch;}
+    public Char getChar(){return displayChar;}
 
 
     public void printAllValues(){

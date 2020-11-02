@@ -11,6 +11,12 @@ public class Displayable {
     private int width;
     private int height;
 
+    private Char displayChar;
+
+    public Displayable(Char ch){
+        displayChar = ch;
+    }
+    public Displayable(){}
 
     public void setVisible(boolean _visible){visible = _visible;}
 
@@ -44,4 +50,7 @@ public class Displayable {
         height = _height;
     }
     public void setPoints(Point p){points.add(p);}
+
+    public void setChar(Char ch){displayChar = ch;}
+    public Char getChar(){return displayChar;}
 }

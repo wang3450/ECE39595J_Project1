@@ -37,20 +37,20 @@ public class Rogue{
         int x = 0;
         int y = 0;
         for(y = topHeight; y< topHeight + gameHeight; y++){
-            displayGrid.addObjectToDisplay(new Char('|'), x, y );
+            displayGrid.addObjectToDisplay(new Wall(new Char('|')), x, y );
         }
         tempY = y -1;
         tempX = x;
         for(x = tempX; x < width + tempX; x++){
-            displayGrid.addObjectToDisplay(new Char('-'), x, tempY);
+            displayGrid.addObjectToDisplay(new Wall(new Char('-')), x, tempY);
         }
         tempX = x -1;
         for(y = tempY; y >= topHeight; y--){
-            displayGrid.addObjectToDisplay(new Char('|'), tempX, y);
+            displayGrid.addObjectToDisplay(new Wall(new Char('|')), tempX, y);
         }
         tempY = y + 1;
         for(x = tempX; x > 0; x--){
-            displayGrid.addObjectToDisplay(new Char('-'), x, tempY);
+            displayGrid.addObjectToDisplay(new Wall(new Char('-')), x, tempY);
         }
         return topHeight;
     }
@@ -74,24 +74,24 @@ public class Rogue{
         int tempY = y;
         for(int l = tempX; l < tempX + width; l++){
             for(int m = tempY; m <= tempY + height - 1; m++){
-                displayGrid.addObjectToDisplay(new Char('.'), l, m);
+                displayGrid.addObjectToDisplay(new Wall(new Char('.')), l, m);
             }
         }
 
         for(y = tempY; y < tempY + height; y++){
-            displayGrid.addObjectToDisplay(new Char('x'), x, y);
+            displayGrid.addObjectToDisplay(new Wall(new Char('x')), x, y);
         }
         tempY = y -1 ;
         for(x = tempX; x < width + tempX; x++){
-            displayGrid.addObjectToDisplay(new Char('x'), x, tempY);
+            displayGrid.addObjectToDisplay(new Wall(new Char('x')), x, tempY);
         }
         tempX = x -1;
         for(y = tempY; y >= p.getY() + topHeight; y--){
-            displayGrid.addObjectToDisplay(new Char('x'), tempX, y);
+            displayGrid.addObjectToDisplay(new Wall(new Char('x')), tempX, y);
         }
         tempY = y + 1;
         for(x = tempX; x >= p.getX(); x--){
-            displayGrid.addObjectToDisplay(new Char('x'), x, tempY);
+            displayGrid.addObjectToDisplay(new Wall(new Char('x')), x, tempY);
         }
 
         ArrayList<Item> items = r.getItems();
@@ -102,19 +102,19 @@ public class Rogue{
                 Scroll scroll = (Scroll) i;
                 int a = scroll.getPoint().getX() + r.getPoint().getX();
                 int b = scroll.getPoint().getY() + r.getPoint().getY() + topHeight;
-                displayGrid.addObjectToDisplay(new Char('?'), a, b);
+                displayGrid.addObjectToDisplay((Displayable) scroll, a, b);
             }
             else if(i instanceof Armor) {
                 Armor armor = (Armor) i;
                 int a = armor.getPoint().getX() + r.getPoint().getX();
                 int b = armor.getPoint().getY() + r.getPoint().getY() + topHeight;
-                displayGrid.addObjectToDisplay(new Char(']'), a, b);
+                displayGrid.addObjectToDisplay((Displayable) armor, a, b);
             }
             else if(i instanceof Sword){
                 Sword sword = (Sword) i;
                 int a = sword.getPoint().getX() + r.getPoint().getX();
                 int b = sword.getPoint().getY() + r.getPoint().getY() + topHeight;
-                displayGrid.addObjectToDisplay(new Char(')'), a, b);
+                displayGrid.addObjectToDisplay((Displayable) sword, a, b);
             }
         }
         for(Creature c: creatures){
@@ -122,7 +122,7 @@ public class Rogue{
                 Player player = (Player) c;
                 int a = player.getPoint().getX() + r.getPoint().getX();
                 int b = player.getPoint().getY() + r.getPoint().getY() + topHeight;
-                displayGrid.addObjectToDisplay(new Char('@'), a, b);
+                displayGrid.addObjectToDisplay((Displayable) player, a, b);
                 int hp = player.getHp();
                 int hundreds = hp / 10;
                 int tens = 0;
@@ -139,58 +139,60 @@ public class Rogue{
                 }
 
 
-                displayGrid.addObjectToDisplay(new Char((char) hundreds), 3,0);
-                displayGrid.addObjectToDisplay(new Char((char) tens ), 4,0);
-                displayGrid.addObjectToDisplay(new Char((char) ones ), 5,0);
-                //returnPlayer = player;
+                displayGrid.addObjectToDisplay(new Wall(new Char((char) hundreds)), 3,0);
+                displayGrid.addObjectToDisplay(new Wall(new Char((char) tens)), 4,0);
+                displayGrid.addObjectToDisplay(new Wall(new Char((char) ones)), 5,0);
+
             }
             else if(c instanceof Monster){
                 Monster monster = (Monster) c;
                 if(monster.getName().equals("Troll")){
                     int a = monster.getPoint().getX() + r.getPoint().getX();
                     int b = monster.getPoint().getY() + r.getPoint().getY() + topHeight;
-                    displayGrid.addObjectToDisplay(new Char('T'), a, b);
+                    monster.setChar(new Char('T'));
+                    displayGrid.addObjectToDisplay((Displayable) monster, a, b);
                 }
                 else if(monster.getName().equals("Snake") || monster.getName().equals("S")){
                     int a = monster.getPoint().getX() + r.getPoint().getX();
                     int b = monster.getPoint().getY() + r.getPoint().getY() + topHeight;
-                    displayGrid.addObjectToDisplay(new Char('S'), a, b);
+                    monster.setChar(new Char('S'));
+                    displayGrid.addObjectToDisplay((Displayable) monster, a, b);
                 }
                 else if(monster.getName().equals("Hobgoblin")){
                     int a = monster.getPoint().getX() + r.getPoint().getX();
                     int b = monster.getPoint().getY() + r.getPoint().getY() + topHeight;
-                    displayGrid.addObjectToDisplay(new Char('H'), a, b);
+                    monster.setChar(new Char('H'));
+                    displayGrid.addObjectToDisplay((Displayable) monster, a, b);
                 }
             }
         }
-        displayGrid.addObjectToDisplay(new Char('H'), 0,0);
-        displayGrid.addObjectToDisplay(new Char('P'), 1,0);
-        displayGrid.addObjectToDisplay(new Char(':'), 2,0);
+        displayGrid.addObjectToDisplay(new Wall(new Char('H')), 0,0);
+        displayGrid.addObjectToDisplay(new Wall(new Char('P')), 1,0);
+        displayGrid.addObjectToDisplay(new Wall(new Char(':')), 2,0);
 
-        displayGrid.addObjectToDisplay(new Char('S'), 7,0);
-        displayGrid.addObjectToDisplay(new Char('c'), 8,0);
-        displayGrid.addObjectToDisplay(new Char('o'), 9,0);
-        displayGrid.addObjectToDisplay(new Char('r'), 10,0);
-        displayGrid.addObjectToDisplay(new Char('e'), 11,0);
-        displayGrid.addObjectToDisplay(new Char(':'), 12,0);
-        displayGrid.addObjectToDisplay(new Char('0'), 13,0); //change later
+        displayGrid.addObjectToDisplay(new Wall(new Char('S')), 7,0);
+        displayGrid.addObjectToDisplay(new Wall(new Char('c')), 8,0);
+        displayGrid.addObjectToDisplay(new Wall(new Char('o')), 9,0);
+        displayGrid.addObjectToDisplay(new Wall(new Char('r')), 10,0);
+        displayGrid.addObjectToDisplay(new Wall(new Char('e')), 11,0);
+        displayGrid.addObjectToDisplay(new Wall(new Char(':')), 12,0);
+        displayGrid.addObjectToDisplay(new Wall(new Char('0')), 13,0); //change later
 
-        displayGrid.addObjectToDisplay(new Char('P'), 0,HEIGHT - bottomHeight + 1);
-        displayGrid.addObjectToDisplay(new Char('a'), 1,HEIGHT - bottomHeight + 1);
-        displayGrid.addObjectToDisplay(new Char('c'), 2,HEIGHT - bottomHeight + 1);
-        displayGrid.addObjectToDisplay(new Char('k'), 3,HEIGHT - bottomHeight + 1);
-        displayGrid.addObjectToDisplay(new Char(':'), 4,HEIGHT - bottomHeight + 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char('P')), 0,HEIGHT - bottomHeight + 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char('a')), 1,HEIGHT - bottomHeight + 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char('c')), 2,HEIGHT - bottomHeight + 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char('k')), 3,HEIGHT - bottomHeight + 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char(':')), 4,HEIGHT - bottomHeight + 1);
 
-        displayGrid.addObjectToDisplay(new Char('I'), 0,HEIGHT - 1);
-        displayGrid.addObjectToDisplay(new Char('n'), 1,HEIGHT - 1);
-        displayGrid.addObjectToDisplay(new Char('f'), 2,HEIGHT - 1);
-        displayGrid.addObjectToDisplay(new Char('o'), 3,HEIGHT - 1);
-        displayGrid.addObjectToDisplay(new Char(':'), 4,HEIGHT - 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char('I')), 0,HEIGHT - 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char('n')), 1,HEIGHT - 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char('f')), 2,HEIGHT - 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char('o')), 3,HEIGHT - 1);
+        displayGrid.addObjectToDisplay(new Wall(new Char(':')), 4,HEIGHT - 1);
 
 
 
     }
-
     public void drawPassage(structure s, int topheight){
         Passage passage = (Passage) s;
         ArrayList<Point> points = passage.getPoints();
@@ -207,31 +209,31 @@ public class Rogue{
             if(x1 - x2 == 0){
                 if(y1 - y2 < 0){
                     for(int k = y1; k <= y2; k++){
-                        displayGrid.addObjectToDisplay(new Char('#'),x1, k);
+                        displayGrid.addObjectToDisplay(new Wall(new Char('#')),x1, k);
                     }
                 }
                 else{
                     for(int m = y2; m <= y1; m++){
-                        displayGrid.addObjectToDisplay(new Char('#'),x1, m);
+                        displayGrid.addObjectToDisplay(new Wall(new Char('#')),x1, m);
                     }
                 }
             }
             else{
                 if(x1 - x2 <0){
                     for(int l = x1; l <= x2; l++){
-                        displayGrid.addObjectToDisplay(new Char('#'),l, y1);
+                        displayGrid.addObjectToDisplay(new Wall(new Char('#')),l, y1);
                     }
                 }
                 else{
                     for(int n = x2; n <= x1; n++){
-                        displayGrid.addObjectToDisplay(new Char('#'),n, y1);
+                        displayGrid.addObjectToDisplay(new Wall(new Char('#')),n, y1);
                     }
                 }
             }
         }
         for(int i = 0; i < count; i++){
             if(i == 0 || i == count -1){
-                displayGrid.addObjectToDisplay(new Char('+'), points.get(i).getX(), points.get(i).getY() + topheight );
+                displayGrid.addObjectToDisplay(new Wall(new Char('+')), points.get(i).getX(), points.get(i).getY() + topheight );
             }
         }
 

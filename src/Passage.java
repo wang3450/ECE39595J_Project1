@@ -5,6 +5,7 @@ public class Passage extends structure {
     private ArrayList<Point> points = new ArrayList<Point>();
     private boolean visible;
     private String name;
+    private Char displayChar = new Char('#');
 
     public Passage(){super();}
     public void setID(int _room1, int _room2){
@@ -16,7 +17,7 @@ public class Passage extends structure {
     }
     public void setPoints(Point p){points.add(p);}
     public void setVisible(boolean b){visible =b;}
-
+    public Char getChar(){return displayChar;}
     public ArrayList<Point> getPoints(){return points;}
 
 

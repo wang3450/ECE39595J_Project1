@@ -5,6 +5,7 @@ public class Armor extends Item{
     private int roomLocation;
     private int serial;
     private int intValue;
+    private Char displayChar = new Char(']');
 
     public Armor(String _name){
         name = _name;
@@ -19,7 +20,7 @@ public class Armor extends Item{
         roomLocation = _room;
         serial = _serial;
     }
-
+    public Char getChar(){return displayChar;}
     public Point getPoint(){return point;}
 
 

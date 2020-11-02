@@ -13,14 +13,14 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
 
     private static AsciiPanel terminal;
     //private Char[][] objectGrid = null;
-    private Stack<Char>[][] objectGrid = null;
+    private Stack<Displayable>[][] objectGrid = null;
 
     private List<InputObserver> inputObservers = new ArrayList<InputObserver>();
 
     private static int height;
     private static int width;
 
-    public Stack<Char>[][] getObjectGrid(){return objectGrid;}
+    public Stack<Displayable>[][] getObjectGrid(){return objectGrid;}
 
     public ObjectDisplayGrid(int _width, int _height) {
         width = _width;
@@ -31,7 +31,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
         objectGrid = new Stack[width][height];
         for(int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                objectGrid[i][j] = new Stack<Char>();
+                objectGrid[i][j] = new Stack<Displayable>();
             }
         }
 
@@ -90,7 +90,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
         Char ch = new Char(' ');
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                addObjectToDisplay(ch, i, j);
+                addObjectToDisplay(new Displayable(ch), i, j);
             }
         }
         terminal.repaint();
@@ -104,7 +104,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
         }
     }
 
-    public void addObjectToDisplay(Char ch, int x, int y) {
+    public void addObjectToDisplay(Displayable ch, int x, int y) {
         if ((0 <= x) && (x < objectGrid.length)) {
             if ((0 <= y) && (y < objectGrid[0].length)) {
                 objectGrid[x][y].push(ch);
@@ -112,18 +112,50 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
             }
         }
     }
-    public void removeObjectFromDisplay(Char ch, int x, int y) {
+    public Displayable removeObjectFromDisplay(int x, int y) {
+        Displayable displayable = null;
         if ((0 <= x) && (x < objectGrid.length)) {
             if ((0 <= y) && (y < objectGrid[0].length)) {
-                objectGrid[x][y].pop();
+                displayable = objectGrid[x][y].pop();
                 writeToTerminal(x, y);
             }
         }
+        return displayable;
     }
 
     private void writeToTerminal(int x, int y) {
-        Char ch = objectGrid[x][y].peek();
-        terminal.write(ch.getChar(), x, y);
-        terminal.repaint();
+        Displayable d = objectGrid[x][y].peek();
+        if(d.getChar().getChar() == '@'){
+            terminal.write(d.getChar().getChar(),x,y, AsciiPanel.brightCyan);
+            terminal.repaint();
+        }
+        else if(d.getChar().getChar() == 'x') {
+            terminal.write(d.getChar().getChar(),x,y,AsciiPanel.brown);
+            terminal.repaint();
+        }
+        else if(d.getChar().getChar() == 'S' && d instanceof Monster) {
+            terminal.write(d.getChar().getChar(),x,y,AsciiPanel.newGreen);
+            terminal.repaint();
+        }
+        else if(d.getChar().getChar() == 'T' && d instanceof Monster) {
+            terminal.write(d.getChar().getChar(),x,y,AsciiPanel.brightYellow);
+            terminal.repaint();
+        }
+        else if(d.getChar().getChar() == 'H' && d instanceof Monster) {
+            terminal.write(d.getChar().getChar(),x,y,AsciiPanel.pinkOrange);
+            terminal.repaint();
+        }
+        else if(d.getChar().getChar() == '#') {
+            terminal.write(d.getChar().getChar(),x,y,AsciiPanel.dirtBrown);
+            terminal.repaint();
+        }
+        else if(d.getChar().getChar() == '+') {
+            terminal.write(d.getChar().getChar(),x,y,AsciiPanel.brown);
+            terminal.repaint();
+        }
+        else{
+            terminal.write(d.getChar().getChar(),x,y);
+            terminal.repaint();
+        }
     }
 }

@@ -104,6 +104,14 @@ public class AsciiPanel extends JPanel {
      */
     public static Color brightWhite = new Color(255, 255, 255);
 
+    public static Color darkBlue = new Color(129 , 129, 201);
+    public static Color pinkOrange = new Color (255, 0, 127);
+    public static Color newGreen = new Color (50, 205,50);
+    public static Color newRed = new Color (242, 71, 71);
+    public static Color brown = new Color(191, 125, 75);
+    public static Color dirtBrown = new Color(255,228,181);
+
+
     private Image offscreenBuffer;
     private Graphics offscreenGraphics;
     private int widthInCharacters;

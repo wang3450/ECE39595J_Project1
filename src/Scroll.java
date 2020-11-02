@@ -6,6 +6,7 @@ public class Scroll extends Item {
     private Point point = new Point(0,0);
     private Creature c;
     private ItemAction action = new ItemAction(c);
+    private Char displayChar = new Char('?');
     //Need Item intvalue, item character value, and message from action
 
     public Scroll(String _name){
@@ -27,7 +28,7 @@ public class Scroll extends Item {
     }
     public String getName(){return name;}
     public Point getPoint(){return point;}
-
+    public Char getChar(){return displayChar;}
 
 
     public void printAllValues(){
