@@ -15,6 +15,7 @@ public class Player extends Creature {
     private int maxHit;
     private ArrayList<CreatureAction> creatureActions = new ArrayList<CreatureAction>();
     private Char displayChar = new Char('@');
+    private ArrayList<Item> inventory = new ArrayList<Item>();
 
     public void setRoom(int _room){room = _room;}
     public void setSerial(int _serial){serial = _serial;}
@@ -37,6 +38,8 @@ public class Player extends Creature {
     public int getHp(){return hp;}
     public int getMaxHit(){return maxHit;}
     public Char getChar(){return displayChar;}
+    public void setInventory(Item i){inventory.add(i);}
+    public ArrayList<Item> getInventory(){return inventory;}
 
     public void printAllValues(){
         System.out.println("Name: " + name);

@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.Random;
@@ -490,7 +491,33 @@ public class KeyStrokePrinter implements InputObserver {
                 y -= 1;
             }
         }
-
+        else if(ch == 'p'){
+            Displayable player = displayGrid.removeObjectFromDisplay(x,y);
+            Displayable item = null;
+            if(displayGrid.getObjectGrid()[x][y].peek().getChar().getChar() == '.'){
+                displayGrid.addObjectToDisplay(player,x,y);
+                return false;
+            }
+            else{
+                item = displayGrid.removeObjectFromDisplay(x,y);
+                player.setInventory((Item) item);
+                displayGrid.addObjectToDisplay(player,x,y);
+                System.out.println(player.getInventory().get(0));
+            }
+        }
+        else if(ch == 'q'){
+            if(player.getInventory() == null){
+                System.out.println("Nothing in Inventory");
+                return false;
+            }
+            else{
+                Displayable player = displayGrid.removeObjectFromDisplay(x,y);
+                ArrayList<Item> inventory = player.getInventory();
+                Item dropped = inventory.get(inventory.size() -1);
+                displayGrid.addObjectToDisplay((Displayable) dropped,x,y);
+                displayGrid.addObjectToDisplay(player,x,y);
+            }
+        }
         else {
             System.out.println("character " + ch + " entered on the keyboard");
         }

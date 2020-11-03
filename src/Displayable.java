@@ -10,6 +10,7 @@ public class Displayable {
     private ArrayList <Point> points = new ArrayList<Point>(); 
     private int width;
     private int height;
+    private ArrayList<Item> inventory = new ArrayList<Item>();
 
     private Char displayChar;
 
@@ -55,4 +56,6 @@ public class Displayable {
     public Char getChar(){return displayChar;}
     public int getMaxHit(){return MaxHit;}
     public int getHp(){return Hp;}
+    public void setInventory(Item i){inventory.add(i);}
+    public ArrayList<Item> getInventory(){return inventory;}
 }
