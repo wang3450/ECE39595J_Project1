@@ -38,9 +38,10 @@ public class Player extends Creature {
     public int getHp(){return hp;}
     public int getMaxHit(){return maxHit;}
     public Char getChar(){return displayChar;}
+    public void setInventory(ArrayList<Item> i){inventory = i;}
     public void setInventory(Item i){inventory.add(i);}
     public ArrayList<Item> getInventory(){return inventory;}
-
+    public void dropItem(){inventory.remove(inventory.size() -1);}
     public void printAllValues(){
         System.out.println("Name: " + name);
         System.out.println("Room Number: " +room);

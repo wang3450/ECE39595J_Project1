@@ -125,7 +125,10 @@ public class XMLHandler extends DefaultHandler{
             sword.setID(swordRoom, swordSerial);
             item.add(sword);
             i_parsed = sword;
-            if(c_parsed != null){c_parsed.setWeapon(sword);}
+            if(c_parsed != null) {
+                c_parsed.setWeapon(sword);
+                c_parsed.setInventory(sword);
+            }
             else{s_parsed.addItem(sword);}
         }
         else if(qName.equalsIgnoreCase("Monster")){
@@ -147,7 +150,10 @@ public class XMLHandler extends DefaultHandler{
             armor.setID(armorRoom, armorSerial);
             item.add(armor);
             i_parsed = armor;
-            if(c_parsed != null) {c_parsed.setArmor(armor);}
+            if(c_parsed != null) {
+                c_parsed.setArmor(armor);
+                c_parsed.setInventory(armor);
+            }
             else{s_parsed.addItem(armor);}
 
         }

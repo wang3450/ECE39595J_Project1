@@ -57,5 +57,7 @@ public class Displayable {
     public int getMaxHit(){return MaxHit;}
     public int getHp(){return Hp;}
     public void setInventory(Item i){inventory.add(i);}
+    public void setInventory(ArrayList<Item> i){inventory = i;}
     public ArrayList<Item> getInventory(){return inventory;}
+    public void dropItem(){inventory.remove(inventory.size() -1);}
 }

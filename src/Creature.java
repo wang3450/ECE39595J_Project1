@@ -11,7 +11,7 @@ public class Creature extends Displayable {
     private Item weapon;
     private Item armor;
     private Char displayChar;
-
+    private ArrayList<Item> inventory;
     public Creature(Char ch){super(ch);}
     public Creature(){}
     public Char getChar(){return displayChar;}
@@ -30,7 +30,7 @@ public class Creature extends Displayable {
     }
     public void setCreatureActions(CreatureAction ca){creatureActions.add(ca);}
     public void setDeathAction(CreatureAction da){dAction = da;}
-
+    public void dropItem(){inventory.remove(inventory.size() -1);}
     public void setHitAction(CreatureAction ha) {hitAction = ha;}
 
 
