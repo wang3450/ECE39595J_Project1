@@ -42,13 +42,13 @@
                 <visible>1</visible>
                 <posX>4</posX>
                 <posY>2</posY>
-                <ItemIntValue>10</ItemIntValue>
+                <ItemIntValue>5</ItemIntValue>
             </Armor>
-            <Sword name="+5 Sword" room="1" serial="3">
+            <Sword name="+3 Sword" room="1" serial="3">
                 <visible>1</visible>
                 <posX>5</posX>
                 <posY>2</posY>
-                <ItemIntValue>10</ItemIntValue>
+                <ItemIntValue>3</ItemIntValue>
             </Sword>
         </Room>
     </Rooms>

@@ -126,6 +126,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
         if ((0 <= x) && (x < objectGrid.length)) {
             if ((0 <= y) && (y < objectGrid[0].length)) {
                 terminal.write(s,x,y);
+                terminal.repaint();
             }
         }
     }
@@ -160,9 +161,14 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
             terminal.write(d.getChar().getChar(),x,y,AsciiPanel.brown);
             terminal.repaint();
         }
+        else if(d.getChar().getChar() == 'i'){
+            terminal.write(d.getChar().getChar(),x,y);
+            terminal.repaint();
+        }
         else{
             terminal.write(d.getChar().getChar(),x,y);
             terminal.repaint();
         }
+        terminal.repaint();
     }
 }

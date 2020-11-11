@@ -17,6 +17,8 @@ public class Player extends Creature {
     private Char displayChar = new Char('@');
     private ArrayList<Item> inventory = new ArrayList<Item>();
 
+    public Player(){}
+
     public void setRoom(int _room){room = _room;}
     public void setSerial(int _serial){serial = _serial;}
     public void setVisible(boolean b){visible =b;}
@@ -32,16 +34,21 @@ public class Player extends Creature {
     public void setName(String n){name = n;}
     public void setMaxHit(int mh){maxHit = mh;}
     public void setCreatureActions(CreatureAction ca){creatureActions.add(ca);}
+    public void setInventory(ArrayList<Item> i){inventory = i;}
+    public void setInventory(Item i){inventory.add(i);}
 
-    public Player(){}
     public Point getPoint(){return point;}
     public int getHp(){return hp;}
     public int getMaxHit(){return maxHit;}
     public Char getChar(){return displayChar;}
-    public void setInventory(ArrayList<Item> i){inventory = i;}
-    public void setInventory(Item i){inventory.add(i);}
+    public Item getArmor(){return armor;}
+    public Item getSword(){return weapon;}
     public ArrayList<Item> getInventory(){return inventory;}
-    public void dropItem(){inventory.remove(inventory.size() -1);}
+    public void dropItem(int i){
+        inventory.remove(i-1);
+    }
+
+
     public void printAllValues(){
         System.out.println("Name: " + name);
         System.out.println("Room Number: " +room);

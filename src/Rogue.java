@@ -285,6 +285,9 @@ public class Rogue{
 
             Point point = new Point(player.getPoint().getX() + room.getPoint().getX(), player.getPoint().getY() + topHeight + room.getPoint().getY());
             player.setPoint(point);
+            System.out.println(player.getInventory());
+            System.out.println(player.getArmor());
+            System.out.println(player.getSword());
             keystroke = new KeyStrokePrinter(displayGrid, player);
             displayGrid.registerInputObserver(keystroke);
 

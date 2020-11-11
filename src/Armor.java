@@ -22,6 +22,7 @@ public class Armor extends Item{
     }
     public Char getChar(){return displayChar;}
     public Point getPoint(){return point;}
+    public int getIntValue(){return intValue;}
 
 
     public void printAllValues(){

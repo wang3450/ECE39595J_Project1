@@ -59,5 +59,7 @@ public class Displayable {
     public void setInventory(Item i){inventory.add(i);}
     public void setInventory(ArrayList<Item> i){inventory = i;}
     public ArrayList<Item> getInventory(){return inventory;}
-    public void dropItem(){inventory.remove(inventory.size() -1);}
+    public void dropItem(int i){
+        inventory.remove(i-1);
+    }
 }
