@@ -20,7 +20,12 @@ public class KeyStrokePrinter implements InputObserver {
     private static final int HEIGHT = 40;
     private Item armor;
     private Item sword;
+    private int hpm;
+    private int moveCounter = 0;
     private boolean dropFlag = false;
+    private boolean wear = false;
+    private boolean wield = false;
+
 
     public KeyStrokePrinter(ObjectDisplayGrid grid, Player _player) {
         //inputQueue = new ConcurrentLinkedQueue<>();
@@ -32,6 +37,7 @@ public class KeyStrokePrinter implements InputObserver {
         playerHp = _player.getHp();
         armor = _player.getArmor();
         sword = _player.getSword();
+        hpm= _player.getHpm();
     }
 
     public int getDigits(int x){
@@ -54,7 +60,19 @@ public class KeyStrokePrinter implements InputObserver {
                 System.out.println("got an X, ending input checking");
                 return false;
             }
+            //move left
             else if (ch == 'h' || ch == 'a') {
+                int playerArmor;
+                int playerSword;
+                if(armor == null)
+                    playerArmor = 0;
+                else
+                    playerArmor = armor.getIntValue();
+                if(sword == null)
+                    playerSword = 0;
+                else
+                    playerSword = sword.getIntValue();
+
                 if (displayGrid.getObjectGrid()[x - 1][y].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x - 1][y].peek().getChar().getChar() == ' ')
                     return false;
                 else if (displayGrid.getObjectGrid()[x - 1][y].peek().getChar().getChar() == 'T' || displayGrid.getObjectGrid()[x - 1][y].peek().getChar().getChar() == 'S' || displayGrid.getObjectGrid()[x - 1][y].peek().getChar().getChar() == 'H') {
@@ -63,19 +81,30 @@ public class KeyStrokePrinter implements InputObserver {
                     int monsterHp = displayGrid.getObjectGrid()[x - 1][y].peek().getHp();
                     int randomPlayer = random.nextInt(playerMaxHit + 1);
                     int randomMonster = random.nextInt(monsterMaxHit + 1);
-                    displayGrid.getObjectGrid()[x - 1][y].peek().setHp(monsterHp - randomPlayer);
+                    System.out.println("Player hit with: " + randomPlayer);
+                    System.out.println("Monster Hit with: " + randomMonster);
+                    displayGrid.getObjectGrid()[x - 1][y].peek().setHp(monsterHp - randomPlayer - playerSword);
                     displayGrid.addStringToDisplay("Monster Took", 6, HEIGHT - 1);
+
                     if(getDigits(randomPlayer) == 2)
-                        displayGrid.addStringToDisplay("0"+Integer.toString(randomPlayer),19,HEIGHT-1);
+                        displayGrid.addStringToDisplay("0"+Integer.toString(randomPlayer + playerSword),19,HEIGHT-1);
                     else if(getDigits(randomPlayer) == 1)
-                        displayGrid.addStringToDisplay("00"+Integer.toString(randomPlayer),19,HEIGHT-1);
+                        displayGrid.addStringToDisplay("00"+Integer.toString(randomPlayer + playerSword),19,HEIGHT-1);
+
                     displayGrid.addStringToDisplay("Damage!", 23, HEIGHT - 1);
                     System.out.println("Monster Took Damage: " + randomPlayer);
                     System.out.println("Monster Hp: " + displayGrid.getObjectGrid()[x - 1][y].peek().getHp());
                     if (displayGrid.getObjectGrid()[x - 1][y].peek().getHp() <= 0)
                         displayGrid.removeObjectFromDisplay(x - 1, y);
                     else {
-                        playerHp -= randomMonster;
+                        if(playerArmor > randomMonster) {
+                            playerHp += 0;
+                            randomMonster = 0;
+                        }
+                        else{
+                            playerHp = playerHp - randomMonster + playerArmor;
+                            randomMonster -= playerArmor;
+                        }
                         if(getDigits(playerHp) == 3)
                             displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
                         else if(getDigits(playerHp) == 2)
@@ -87,12 +116,12 @@ public class KeyStrokePrinter implements InputObserver {
 
                         if(getDigits(randomMonster) == 2)
                             displayGrid.addStringToDisplay("0"+Integer.toString(randomMonster),43,HEIGHT-1);
-                        else if(getDigits((randomMonster)) == 1)
+                        else if(getDigits(randomMonster) == 1)
                             displayGrid.addStringToDisplay("00"+Integer.toString(randomMonster),43,HEIGHT-1);
 
                         displayGrid.addStringToDisplay("Damage!", 47, HEIGHT - 1);
                         System.out.println("\n");
-                        System.out.println("Player Took Damage: " + randomMonster);
+                        System.out.println("Player Took Damage: " + (randomMonster));
                         System.out.println("Player Hp: " + playerHp);
 
                         if (playerHp <= 0) {
@@ -101,13 +130,36 @@ public class KeyStrokePrinter implements InputObserver {
                             displayGrid.addStringToDisplay("Game Over! Player has died.                                         ", 6, HEIGHT - 1);
                         }
                     }
+                    moveCounter++;
+                    if(moveCounter == hpm){
+                        playerHp++;
+                        if(getDigits(playerHp) == 3)
+                            displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 2)
+                            displayGrid.addStringToDisplay("0"+Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 1)
+                            displayGrid.addStringToDisplay("00"+Integer.toString(playerHp),3,0);
+                        moveCounter = 0;
+                    }
                 }
                 else {
                     player = displayGrid.removeObjectFromDisplay(x, y);
                     displayGrid.addObjectToDisplay(player, x - 1, y);
                     x -= 1;
+                    moveCounter++;
+                    if(moveCounter == hpm){
+                        playerHp++;
+                        if(getDigits(playerHp) == 3)
+                            displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 2)
+                            displayGrid.addStringToDisplay("0"+Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 1)
+                            displayGrid.addStringToDisplay("00"+Integer.toString(playerHp),3,0);
+                        moveCounter = 0;
+                    }
                 }
             }
+            //move right
             else if (ch == 'l' || ch == 'd') {
                 if (displayGrid.getObjectGrid()[x + 1][y].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x + 1][y].peek().getChar().getChar() == ' ')
                     return false;
@@ -159,12 +211,36 @@ public class KeyStrokePrinter implements InputObserver {
                             displayGrid.addStringToDisplay("Game Over! Player has died.                                         ", 6, HEIGHT - 1);
                         }
                     }
-                } else {
+                    moveCounter++;
+                    if(moveCounter == hpm){
+                        playerHp++;
+                        if(getDigits(playerHp) == 3)
+                            displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 2)
+                            displayGrid.addStringToDisplay("0"+Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 1)
+                            displayGrid.addStringToDisplay("00"+Integer.toString(playerHp),3,0);
+                        moveCounter = 0;
+                    }
+                }
+                else {
                     displayGrid.removeObjectFromDisplay(x, y);
                     displayGrid.addObjectToDisplay(player, x + 1, y);
                     x += 1;
+                    moveCounter++;
+                    if(moveCounter == hpm){
+                        playerHp++;
+                        if(getDigits(playerHp) == 3)
+                            displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 2)
+                            displayGrid.addStringToDisplay("0"+Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 1)
+                            displayGrid.addStringToDisplay("00"+Integer.toString(playerHp),3,0);
+                        moveCounter = 0;
+                    }
                 }
             }
+            //move down
             else if (ch == 'j' || ch == 's') {
                 if (displayGrid.getObjectGrid()[x][y + 1].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x][y + 1].peek().getChar().getChar() == ' ')
                     return false;
@@ -215,12 +291,36 @@ public class KeyStrokePrinter implements InputObserver {
                             displayGrid.addStringToDisplay("Game Over! Player has died.                                         ", 6, HEIGHT - 1);
                         }
                     }
-                } else {
+                    moveCounter++;
+                    if(moveCounter == hpm){
+                        playerHp++;
+                        if(getDigits(playerHp) == 3)
+                            displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 2)
+                            displayGrid.addStringToDisplay("0"+Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 1)
+                            displayGrid.addStringToDisplay("00"+Integer.toString(playerHp),3,0);
+                        moveCounter = 0;
+                    }
+                }
+                else {
                     displayGrid.removeObjectFromDisplay(x, y);
                     displayGrid.addObjectToDisplay(player, x, y + 1);
                     y += 1;
+                    moveCounter++;
+                    if(moveCounter == hpm){
+                        playerHp++;
+                        if(getDigits(playerHp) == 3)
+                            displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 2)
+                            displayGrid.addStringToDisplay("0"+Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 1)
+                            displayGrid.addStringToDisplay("00"+Integer.toString(playerHp),3,0);
+                        moveCounter = 0;
+                    }
                 }
             }
+            //move up
             else if (ch == 'k' || ch == 'w') {
                 if (displayGrid.getObjectGrid()[x][y - 1].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x][y - 1].peek().getChar().getChar() == ' ')
                     return false;
@@ -271,12 +371,36 @@ public class KeyStrokePrinter implements InputObserver {
                             displayGrid.addStringToDisplay("Game Over! Player has died.                                         ", 6, HEIGHT - 1);
                         }
                     }
-                } else {
+                    moveCounter++;
+                    if(moveCounter == hpm){
+                        playerHp++;
+                        if(getDigits(playerHp) == 3)
+                            displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 2)
+                            displayGrid.addStringToDisplay("0"+Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 1)
+                            displayGrid.addStringToDisplay("00"+Integer.toString(playerHp),3,0);
+                        moveCounter = 0;
+                    }
+                }
+                else {
                     displayGrid.removeObjectFromDisplay(x, y);
                     displayGrid.addObjectToDisplay(player, x, y - 1);
                     y -= 1;
+                    moveCounter++;
+                    if(moveCounter == hpm){
+                        playerHp++;
+                        if(getDigits(playerHp) == 3)
+                            displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 2)
+                            displayGrid.addStringToDisplay("0"+Integer.toString(playerHp),3,0);
+                        else if(getDigits(playerHp) == 1)
+                            displayGrid.addStringToDisplay("00"+Integer.toString(playerHp),3,0);
+                        moveCounter = 0;
+                    }
                 }
             }
+            //pick up item
             else if (ch == 'p') {
                 System.out.println(displayGrid.removeObjectFromDisplay(x, y));
                 if (displayGrid.getObjectGrid()[x][y].peek().getChar().getChar() == '.') {
@@ -288,6 +412,7 @@ public class KeyStrokePrinter implements InputObserver {
                 }
 
             }
+            //drop item
             else if (ch == 'q')
                 dropFlag = true;
             else if(dropFlag){
@@ -296,6 +421,11 @@ public class KeyStrokePrinter implements InputObserver {
                     displayGrid.removeObjectFromDisplay(x,y);
                     displayGrid.addObjectToDisplay(player.getInventory().get(index-1),x,y);
                     displayGrid.addObjectToDisplay(player,x,y);
+
+                    if(player.getInventory().get(index-1) == armor)
+                        armor = null;
+                    else if(player.getInventory().get(index-1) == sword)
+                        sword = null;
                     player.dropItem(index);
 
                 }
@@ -303,6 +433,7 @@ public class KeyStrokePrinter implements InputObserver {
                     displayGrid.addStringToDisplay("Invalid Index To Drop!",6,HEIGHT-1);
                 dropFlag = false;
             }
+            //display inventory
             else if (ch == 'i') {
                 if (player.getInventory().isEmpty())
                     displayGrid.addStringToDisplay("Player Inventory is Empty!                        ", 6, HEIGHT - 3);
@@ -329,15 +460,41 @@ public class KeyStrokePrinter implements InputObserver {
                     displayGrid.addStringToDisplay(str + "                       ", 6, HEIGHT - 3);
                 }
             }
+            //take off armor
             else if (ch == 'c'){
                 if(armor == null)
                     displayGrid.addStringToDisplay("Player does not have any armor that can be taken off!",6,HEIGHT-1);
                 else{
-                    player.setInventory(armor);
                     armor = null;
                     displayGrid.addStringToDisplay("Removed armor and placed it in player inventory",6, HEIGHT-1);
                 }
             }
+            //wear a piece of armor
+            else if( ch == 'z')
+                wear = true;
+            else if(wear){
+                int index = Character.getNumericValue(ch);
+                if(index-1 >= 0 && index-1 < player.getInventory().size()){
+                    armor = player.getInventory().get(index-1);
+                }
+                else
+                    displayGrid.addStringToDisplay("Invalid Index To Wear Armor!",6,HEIGHT-1);
+                wear = false;
+            }
+            //wield a sword
+            else if(ch == 't')
+                wield = true;
+            else if(wield){
+                int index = Character.getNumericValue(ch);
+                if(index-1 >= 0 && index-1 < player.getInventory().size()){
+                    sword = player.getInventory().get(index-1);
+                }
+                else
+                    displayGrid.addStringToDisplay("Invalid Index To Wield Sword!",6,HEIGHT-1);
+                wield = false;
+            }
+
+
             else {
                 System.out.println("character " + ch + " entered on the keyboard");
             }

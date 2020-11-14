@@ -44,6 +44,7 @@ public class Player extends Creature {
     public Item getArmor(){return armor;}
     public Item getSword(){return weapon;}
     public ArrayList<Item> getInventory(){return inventory;}
+    public int getHpm(){return hpm;}
     public void dropItem(int i){
         inventory.remove(i-1);
     }
