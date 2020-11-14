@@ -17,6 +17,12 @@
                     <actionCharValue>a</actionCharValue>
                 </ItemAction>
             </Scroll>
+            <Armor name="+10 Armor" room="1" serial="3">
+                <visible>1</visible>
+                <posX>3</posX>
+                <posY>2</posY>
+                <ItemIntValue>10</ItemIntValue>
+            </Armor>
             <Player name="Player" room="1" serial="2">
                 <visible>1</visible>
                 <posX>1</posX>
@@ -35,7 +41,7 @@
                     <posX>5</posX>
                     <posY>2</posY>
                     <ItemIntValue>10</ItemIntValue>
-                </Sword>  
+                </Sword>
             </Player>
         </Room>
     </Rooms>

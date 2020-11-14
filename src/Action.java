@@ -14,5 +14,6 @@ public class Action {
     public void setCharValue(char _charValue) {
         charValue = _charValue;
     }
+    public char getCharValue(){return charValue;}
     public String getMessage(){return message;}
 }

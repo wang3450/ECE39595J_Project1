@@ -25,6 +25,7 @@ public class KeyStrokePrinter implements InputObserver {
     private boolean dropFlag = false;
     private boolean wear = false;
     private boolean wield = false;
+    private boolean read = false;
 
 
     public KeyStrokePrinter(ObjectDisplayGrid grid, Player _player) {
@@ -457,6 +458,7 @@ public class KeyStrokePrinter implements InputObserver {
 
                     }
                     str = str.replaceAll(", $", "");
+                    displayGrid.addStringToDisplay("                                           ",6,HEIGHT-3);
                     displayGrid.addStringToDisplay(str + "                       ", 6, HEIGHT - 3);
                 }
             }
@@ -492,6 +494,27 @@ public class KeyStrokePrinter implements InputObserver {
                 else
                     displayGrid.addStringToDisplay("Invalid Index To Wield Sword!",6,HEIGHT-1);
                 wield = false;
+            }
+            else if(ch == 'r')
+                read = true;
+            else if(read){
+                read = false;
+                int index = Character.getNumericValue(ch);
+                if(index-1 >= 0 && index-1 < player.getInventory().size()){
+                    if(player.getInventory().get(index-1).getItemAction().getCharValue() == 'a'){
+                        if(armor == null){
+                            displayGrid.addStringToDisplay("Scroll did nothing because armor is not worn!", 6, HEIGHT-1);
+                        }
+                        else{
+                            armor.setIntValue(armor.getIntValue()+player.getInventory().get(index-1).getItemAction().getIntValue());
+                            System.out.println(armor.getIntValue());
+                            displayGrid.addStringToDisplay("Armor was buffed by: " + player.getInventory().get(index-1).getItemAction().getIntValue() +"                    ",6,HEIGHT-1);
+                            player.dropItem(index);
+                        }
+                    }
+                    else
+                        System.out.println("hi");
+                }
             }
 
 

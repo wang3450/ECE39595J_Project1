@@ -13,5 +13,6 @@ public class Item extends Displayable {
     public void setOwner(Creature _owner){owner = _owner;}
     public void setItemAction(ItemAction ia){action = ia;}
     public int getIntValue(){return intValue;}
+    public ItemAction getItemAction(){return action;}
 
 }

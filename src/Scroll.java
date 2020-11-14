@@ -29,6 +29,7 @@ public class Scroll extends Item {
     public String getName(){return action.getName();}
     public Point getPoint(){return point;}
     public Char getChar(){return displayChar;}
+    public ItemAction getItemAction(){return action;}
 
 
     public void printAllValues(){

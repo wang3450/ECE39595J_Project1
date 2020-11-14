@@ -20,6 +20,8 @@ public class ItemAction extends Action {
     public void setIntValue(int _intValue){intValue = _intValue;}
     public void setCharValue(char c){charValue = c;}
     public void setMessage(String s){message = s;}
+    public int getIntValue(){return intValue;}
+    public char getCharValue(){return charValue;}
 
     public String getName(){return name;}
     public void printAllValues(){
