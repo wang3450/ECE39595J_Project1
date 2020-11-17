@@ -26,6 +26,7 @@ public class KeyStrokePrinter implements InputObserver {
     private boolean wear = false;
     private boolean wield = false;
     private boolean read = false;
+    private boolean help = false;
 
 
     public KeyStrokePrinter(ObjectDisplayGrid grid, Player _player) {
@@ -60,6 +61,40 @@ public class KeyStrokePrinter implements InputObserver {
             if (ch == 'X') {
                 System.out.println("got an X, ending input checking");
                 return false;
+            }
+            else if(ch == 'H'){
+                help = true;
+            }
+            else if(help){
+                help = false;
+                char command = ch;
+                if(command == 'w' || command =='a' || command =='s' || command =='d'){
+                    displayGrid.addStringToDisplay("This command moves the player. w:up  a:left  s:down  d:right",6,HEIGHT-1);
+                }
+                else if(command == 'p'){
+                    displayGrid.addStringToDisplay("\"p\": This command picks up an item if the player is directly on top of it.",6,HEIGHT-1);
+                }
+                else if (command == 'q'){
+                    displayGrid.addStringToDisplay("\"q\": This command drops an item where the player is currently standing.   ",6,HEIGHT-1);
+                }
+                else if(command == 'i'){
+                    displayGrid.addStringToDisplay("\"i\": This command displays current inventory. Must press again to update. ",6,HEIGHT-1);
+                }
+                else if(command == 'c'){
+                    displayGrid.addStringToDisplay("\"c\": Takes off armor that is being worn. Puts back into inventory.        ",6,HEIGHT-1);
+                }
+                else if(command == 'z'){
+                    displayGrid.addStringToDisplay("\"z\" followed by a number puts on armor from that inventory spot number.   ",6,HEIGHT-1);
+                }
+                else if(command == 't'){
+                    displayGrid.addStringToDisplay("\"t\" followed by a number weilds a sword from that inventory spot number.  ",6,HEIGHT-1);
+                }
+                else if(command == 'r'){
+                    displayGrid.addStringToDisplay("\"r\" followed by a number reads a scroll from that inventory spot number.  ",6,HEIGHT-1);
+                }
+                else if(command == '?'){
+                    displayGrid.addStringToDisplay("\"?\": This command displays all commands and their key bindings.           ",6,HEIGHT-1);
+                }
             }
             //move left
             else if (ch == 'h' || ch == 'a') {
@@ -516,6 +551,10 @@ public class KeyStrokePrinter implements InputObserver {
                         System.out.println("hi");
                 }
             }
+            else if(ch == '?'){
+                displayGrid.addStringToDisplay("Move: wasd Pick/Drop: p/q Inventory:i Armor-on/off:z/c Sword/Scroll:t/r",6,HEIGHT-1);
+            }
+
 
 
             else {
