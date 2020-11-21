@@ -197,6 +197,17 @@ public class KeyStrokePrinter implements InputObserver {
             }
             //move right
             else if (ch == 'l' || ch == 'd') {
+                int playerArmor;
+                int playerSword;
+                if(armor == null)
+                    playerArmor = 0;
+                else
+                    playerArmor = armor.getIntValue();
+                if(sword == null)
+                    playerSword = 0;
+                else
+                    playerSword = sword.getIntValue();
+
                 if (displayGrid.getObjectGrid()[x + 1][y].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x + 1][y].peek().getChar().getChar() == ' ')
                     return false;
                 else if (displayGrid.getObjectGrid()[x + 1][y].peek().getChar().getChar() == 'T' || displayGrid.getObjectGrid()[x + 1][y].peek().getChar().getChar() == 'S' || displayGrid.getObjectGrid()[x + 1][y].peek().getChar().getChar() == 'H') {
@@ -205,24 +216,30 @@ public class KeyStrokePrinter implements InputObserver {
                     int monsterHp = displayGrid.getObjectGrid()[x + 1][y].peek().getHp();
                     int randomPlayer = random.nextInt(playerMaxHit + 1);
                     int randomMonster = random.nextInt(monsterMaxHit + 1);
-                    displayGrid.getObjectGrid()[x + 1][y].peek().setHp(monsterHp - randomPlayer);
+                    System.out.println("Player hit with: " + randomPlayer);
+                    System.out.println("Monster Hit with: " + randomMonster);
+                    displayGrid.getObjectGrid()[x + 1][y].peek().setHp(monsterHp - randomPlayer - playerSword);
                     displayGrid.addStringToDisplay("Monster Took", 6, HEIGHT - 1);
 
                     if(getDigits(randomPlayer) == 2)
-                        displayGrid.addStringToDisplay("0"+Integer.toString(randomPlayer),19,HEIGHT-1);
+                        displayGrid.addStringToDisplay("0"+Integer.toString(randomPlayer + playerSword),19,HEIGHT-1);
                     else if(getDigits(randomPlayer) == 1)
-                        displayGrid.addStringToDisplay("00"+Integer.toString(randomPlayer),19,HEIGHT-1);
+                        displayGrid.addStringToDisplay("00"+Integer.toString(randomPlayer + playerSword),19,HEIGHT-1);
 
                     displayGrid.addStringToDisplay("Damage!", 23, HEIGHT - 1);
-
                     System.out.println("Monster Took Damage: " + randomPlayer);
                     System.out.println("Monster Hp: " + displayGrid.getObjectGrid()[x + 1][y].peek().getHp());
-
                     if (displayGrid.getObjectGrid()[x + 1][y].peek().getHp() <= 0)
                         displayGrid.removeObjectFromDisplay(x + 1, y);
                     else {
-                        playerHp -= randomMonster;
-
+                        if(playerArmor > randomMonster) {
+                            playerHp += 0;
+                            randomMonster = 0;
+                        }
+                        else{
+                            playerHp = playerHp - randomMonster + playerArmor;
+                            randomMonster -= playerArmor;
+                        }
                         if(getDigits(playerHp) == 3)
                             displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
                         else if(getDigits(playerHp) == 2)
@@ -234,13 +251,14 @@ public class KeyStrokePrinter implements InputObserver {
 
                         if(getDigits(randomMonster) == 2)
                             displayGrid.addStringToDisplay("0"+Integer.toString(randomMonster),43,HEIGHT-1);
-                        else if(getDigits((randomMonster)) == 1)
+                        else if(getDigits(randomMonster) == 1)
                             displayGrid.addStringToDisplay("00"+Integer.toString(randomMonster),43,HEIGHT-1);
 
                         displayGrid.addStringToDisplay("Damage!", 47, HEIGHT - 1);
                         System.out.println("\n");
-                        System.out.println("Player Took Damage: " + randomMonster);
+                        System.out.println("Player Took Damage: " + (randomMonster));
                         System.out.println("Player Hp: " + playerHp);
+
                         if (playerHp <= 0) {
                             System.out.println("PLZ End the Game!");
                             displayGrid.addStringToDisplay("HP:000 Score:0",0,0);
@@ -260,7 +278,7 @@ public class KeyStrokePrinter implements InputObserver {
                     }
                 }
                 else {
-                    displayGrid.removeObjectFromDisplay(x, y);
+                    player = displayGrid.removeObjectFromDisplay(x, y);
                     displayGrid.addObjectToDisplay(player, x + 1, y);
                     x += 1;
                     moveCounter++;
@@ -278,6 +296,17 @@ public class KeyStrokePrinter implements InputObserver {
             }
             //move down
             else if (ch == 'j' || ch == 's') {
+                int playerArmor;
+                int playerSword;
+                if(armor == null)
+                    playerArmor = 0;
+                else
+                    playerArmor = armor.getIntValue();
+                if(sword == null)
+                    playerSword = 0;
+                else
+                    playerSword = sword.getIntValue();
+
                 if (displayGrid.getObjectGrid()[x][y + 1].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x][y + 1].peek().getChar().getChar() == ' ')
                     return false;
                 else if (displayGrid.getObjectGrid()[x][y + 1].peek().getChar().getChar() == 'T' || displayGrid.getObjectGrid()[x][y + 1].peek().getChar().getChar() == 'S' || displayGrid.getObjectGrid()[x][y + 1].peek().getChar().getChar() == 'H') {
@@ -286,23 +315,30 @@ public class KeyStrokePrinter implements InputObserver {
                     int monsterHp = displayGrid.getObjectGrid()[x][y + 1].peek().getHp();
                     int randomPlayer = random.nextInt(playerMaxHit + 1);
                     int randomMonster = random.nextInt(monsterMaxHit + 1);
-                    displayGrid.getObjectGrid()[x][y + 1].peek().setHp(monsterHp - randomPlayer);
+                    System.out.println("Player hit with: " + randomPlayer);
+                    System.out.println("Monster Hit with: " + randomMonster);
+                    displayGrid.getObjectGrid()[x][y + 1].peek().setHp(monsterHp - randomPlayer - playerSword);
                     displayGrid.addStringToDisplay("Monster Took", 6, HEIGHT - 1);
 
                     if(getDigits(randomPlayer) == 2)
-                        displayGrid.addStringToDisplay("0"+Integer.toString(randomPlayer),19,HEIGHT-1);
+                        displayGrid.addStringToDisplay("0"+Integer.toString(randomPlayer + playerSword),19,HEIGHT-1);
                     else if(getDigits(randomPlayer) == 1)
-                        displayGrid.addStringToDisplay("00"+Integer.toString(randomPlayer),19,HEIGHT-1);
+                        displayGrid.addStringToDisplay("00"+Integer.toString(randomPlayer + playerSword),19,HEIGHT-1);
 
                     displayGrid.addStringToDisplay("Damage!", 23, HEIGHT - 1);
-
-
                     System.out.println("Monster Took Damage: " + randomPlayer);
-                    System.out.println("Monster Hp: " + displayGrid.getObjectGrid()[x][y + 1].peek().getHp());
+                    System.out.println("Monster Hp: " + displayGrid.getObjectGrid()[x][y+1].peek().getHp());
                     if (displayGrid.getObjectGrid()[x][y + 1].peek().getHp() <= 0)
                         displayGrid.removeObjectFromDisplay(x, y + 1);
                     else {
-                        playerHp -= randomMonster;
+                        if(playerArmor > randomMonster) {
+                            playerHp += 0;
+                            randomMonster = 0;
+                        }
+                        else{
+                            playerHp = playerHp - randomMonster + playerArmor;
+                            randomMonster -= playerArmor;
+                        }
                         if(getDigits(playerHp) == 3)
                             displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
                         else if(getDigits(playerHp) == 2)
@@ -314,13 +350,14 @@ public class KeyStrokePrinter implements InputObserver {
 
                         if(getDigits(randomMonster) == 2)
                             displayGrid.addStringToDisplay("0"+Integer.toString(randomMonster),43,HEIGHT-1);
-                        else if(getDigits((randomMonster)) == 1)
+                        else if(getDigits(randomMonster) == 1)
                             displayGrid.addStringToDisplay("00"+Integer.toString(randomMonster),43,HEIGHT-1);
 
                         displayGrid.addStringToDisplay("Damage!", 47, HEIGHT - 1);
                         System.out.println("\n");
-                        System.out.println("Player Took Damage: " + randomMonster);
+                        System.out.println("Player Took Damage: " + (randomMonster));
                         System.out.println("Player Hp: " + playerHp);
+
                         if (playerHp <= 0) {
                             System.out.println("PLZ End the Game!");
                             displayGrid.addStringToDisplay("HP:000 Score:0",0,0);
@@ -340,8 +377,8 @@ public class KeyStrokePrinter implements InputObserver {
                     }
                 }
                 else {
-                    displayGrid.removeObjectFromDisplay(x, y);
-                    displayGrid.addObjectToDisplay(player, x, y + 1);
+                    player = displayGrid.removeObjectFromDisplay(x, y);
+                    displayGrid.addObjectToDisplay(player, x, y+1);
                     y += 1;
                     moveCounter++;
                     if(moveCounter == hpm){
@@ -358,31 +395,49 @@ public class KeyStrokePrinter implements InputObserver {
             }
             //move up
             else if (ch == 'k' || ch == 'w') {
+                int playerArmor;
+                int playerSword;
+                if(armor == null)
+                    playerArmor = 0;
+                else
+                    playerArmor = armor.getIntValue();
+                if(sword == null)
+                    playerSword = 0;
+                else
+                    playerSword = sword.getIntValue();
+
                 if (displayGrid.getObjectGrid()[x][y - 1].peek().getChar().getChar() == 'x' || displayGrid.getObjectGrid()[x][y - 1].peek().getChar().getChar() == ' ')
                     return false;
                 else if (displayGrid.getObjectGrid()[x][y - 1].peek().getChar().getChar() == 'T' || displayGrid.getObjectGrid()[x][y - 1].peek().getChar().getChar() == 'S' || displayGrid.getObjectGrid()[x][y - 1].peek().getChar().getChar() == 'H') {
-                    monsterMaxHit = displayGrid.getObjectGrid()[x][y - 1].peek().getMaxHit();
+                    monsterMaxHit = displayGrid.getObjectGrid()[x][y -1].peek().getMaxHit();
                     Random random = new Random();
                     int monsterHp = displayGrid.getObjectGrid()[x][y - 1].peek().getHp();
                     int randomPlayer = random.nextInt(playerMaxHit + 1);
                     int randomMonster = random.nextInt(monsterMaxHit + 1);
-                    displayGrid.getObjectGrid()[x][y - 1].peek().setHp(monsterHp - randomPlayer);
+                    System.out.println("Player hit with: " + randomPlayer);
+                    System.out.println("Monster Hit with: " + randomMonster);
+                    displayGrid.getObjectGrid()[x][y - 1].peek().setHp(monsterHp - randomPlayer - playerSword);
                     displayGrid.addStringToDisplay("Monster Took", 6, HEIGHT - 1);
 
                     if(getDigits(randomPlayer) == 2)
-                        displayGrid.addStringToDisplay("0"+Integer.toString(randomPlayer),19,HEIGHT-1);
+                        displayGrid.addStringToDisplay("0"+Integer.toString(randomPlayer + playerSword),19,HEIGHT-1);
                     else if(getDigits(randomPlayer) == 1)
-                        displayGrid.addStringToDisplay("00"+Integer.toString(randomPlayer),19,HEIGHT-1);
+                        displayGrid.addStringToDisplay("00"+Integer.toString(randomPlayer + playerSword),19,HEIGHT-1);
 
                     displayGrid.addStringToDisplay("Damage!", 23, HEIGHT - 1);
-
                     System.out.println("Monster Took Damage: " + randomPlayer);
                     System.out.println("Monster Hp: " + displayGrid.getObjectGrid()[x][y - 1].peek().getHp());
                     if (displayGrid.getObjectGrid()[x][y - 1].peek().getHp() <= 0)
                         displayGrid.removeObjectFromDisplay(x, y - 1);
                     else {
-                        playerHp -= randomMonster;
-
+                        if(playerArmor > randomMonster) {
+                            playerHp += 0;
+                            randomMonster = 0;
+                        }
+                        else{
+                            playerHp = playerHp - randomMonster + playerArmor;
+                            randomMonster -= playerArmor;
+                        }
                         if(getDigits(playerHp) == 3)
                             displayGrid.addStringToDisplay(Integer.toString(playerHp),3,0);
                         else if(getDigits(playerHp) == 2)
@@ -394,13 +449,14 @@ public class KeyStrokePrinter implements InputObserver {
 
                         if(getDigits(randomMonster) == 2)
                             displayGrid.addStringToDisplay("0"+Integer.toString(randomMonster),43,HEIGHT-1);
-                        else if(getDigits((randomMonster)) == 1)
+                        else if(getDigits(randomMonster) == 1)
                             displayGrid.addStringToDisplay("00"+Integer.toString(randomMonster),43,HEIGHT-1);
 
                         displayGrid.addStringToDisplay("Damage!", 47, HEIGHT - 1);
                         System.out.println("\n");
-                        System.out.println("Player Took Damage: " + randomMonster);
+                        System.out.println("Player Took Damage: " + (randomMonster));
                         System.out.println("Player Hp: " + playerHp);
+
                         if (playerHp <= 0) {
                             System.out.println("PLZ End the Game!");
                             displayGrid.addStringToDisplay("HP:000 Score:0",0,0);
@@ -420,7 +476,7 @@ public class KeyStrokePrinter implements InputObserver {
                     }
                 }
                 else {
-                    displayGrid.removeObjectFromDisplay(x, y);
+                    player = displayGrid.removeObjectFromDisplay(x, y);
                     displayGrid.addObjectToDisplay(player, x, y - 1);
                     y -= 1;
                     moveCounter++;
