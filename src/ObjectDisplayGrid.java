@@ -131,6 +131,15 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
         }
     }
 
+    public void repaintStack(){
+        for(int i = 0; i < width; i++){
+            for(int j = 2; j < height - 4; j++){
+                writeToTerminal(i,j);
+            }
+        }
+        terminal.repaint();
+    }
+
     private void writeToTerminal(int x, int y) {
         Displayable d = objectGrid[x][y].peek();
         if(d.getChar().getChar() == '@'){

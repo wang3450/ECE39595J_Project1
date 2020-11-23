@@ -29,6 +29,8 @@ public class KeyStrokePrinter implements InputObserver {
     private boolean help = false;
     private boolean endGame = false;
     private boolean actualEndGame = false;
+    private int hallucinateCount = 0;
+    private String[] randomChar = {".", "x", "#", "+", "?", ")", "]", "@", "H", "T", "S"};
 
 
     public KeyStrokePrinter(ObjectDisplayGrid grid, Player _player) {
@@ -96,6 +98,24 @@ public class KeyStrokePrinter implements InputObserver {
 
     }
 
+    public void hallucinate(){
+        Random random = new Random();
+        for(int x = 0; x<80; x++){
+            for(int y = 2; y <HEIGHT-4;y++){
+                if(displayGrid.getObjectGrid()[x][y].peek().getChar().getChar() == ' '){
+                    System.out.println("hi");
+                }
+                else {
+                    displayGrid.addStringToDisplay(randomChar[random.nextInt(11)], x, y);
+                }
+            }
+        }
+        hallucinateCount--;
+    }
+
+    public void doneHallucinate(){
+        displayGrid.repaintStack();
+    }
     @Override
     public boolean observerUpdate(char ch) {
         while(playerHp >0 && actualEndGame == false) {
@@ -142,6 +162,10 @@ public class KeyStrokePrinter implements InputObserver {
             }
             //move left
             else if (ch == 'h' || ch == 'a') {
+                if(hallucinateCount!= 0)
+                    hallucinate();
+                else
+                    doneHallucinate();
                 int playerArmor;
                 int playerSword;
                 if(armor == null)
@@ -247,6 +271,10 @@ public class KeyStrokePrinter implements InputObserver {
             }
             //move right
             else if (ch == 'l' || ch == 'd') {
+                if(hallucinateCount!= 0)
+                    hallucinate();
+                else
+                    doneHallucinate();
                 int playerArmor;
                 int playerSword;
                 if(armor == null)
@@ -353,6 +381,10 @@ public class KeyStrokePrinter implements InputObserver {
             }
             //move down
             else if (ch == 'j' || ch == 's') {
+                if(hallucinateCount!= 0)
+                    hallucinate();
+                else
+                    doneHallucinate();
                 int playerArmor;
                 int playerSword;
                 if(armor == null)
@@ -458,6 +490,10 @@ public class KeyStrokePrinter implements InputObserver {
             }
             //move up
             else if (ch == 'k' || ch == 'w') {
+                if(hallucinateCount!= 0)
+                    hallucinate();
+                else
+                    doneHallucinate();
                 int playerArmor;
                 int playerSword;
                 if(armor == null)
@@ -672,8 +708,16 @@ public class KeyStrokePrinter implements InputObserver {
                             player.dropItem(index);
                         }
                     }
-                    else
-                        System.out.println("hi");
+                    else if(player.getInventory().get(index-1).getItemAction().getName().equalsIgnoreCase("Hallucinate")) {
+                        hallucinateCount = player.getInventory().get(index-1).getItemAction().getIntValue();
+                        ArrayList<Item> inventory = player.getInventory();
+                        inventory.remove(index-1);
+                        player.setInventory(inventory);
+                        hallucinate();
+
+
+
+                    }
                 }
             }
             else if(ch == '?'){
