@@ -32,6 +32,7 @@ public class Creature extends Displayable {
     public void setDeathAction(CreatureAction da){dAction = da;}
     public void dropItem(){inventory.remove(inventory.size() -1);}
     public void setHitAction(CreatureAction ha) {hitAction = ha;}
-
+    public CreatureAction getHitAction(){return hitAction;}
+    public ArrayList<CreatureAction> getCreatureActions(){return creatureActions;}
 
 }

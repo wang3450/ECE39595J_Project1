@@ -14,7 +14,7 @@ public class CreatureAction extends Action {
     public CreatureAction (Creature owner){
         creature = owner;
     }
-
+    public String getName(){return name;}
     public CreatureAction(){}
 
     public void printAllValues(){

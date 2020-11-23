@@ -11,8 +11,10 @@ public class Displayable {
     private int width;
     private int height;
     private ArrayList<Item> inventory = new ArrayList<Item>();
-
+    private CreatureAction hitAction;
     private Char displayChar;
+    private ArrayList<CreatureAction> creatureActions = new ArrayList<CreatureAction>();
+
 
     public Displayable(Char ch){
         displayChar = ch;
@@ -62,4 +64,5 @@ public class Displayable {
     public void dropItem(int i){
         inventory.remove(i-1);
     }
+    public ArrayList<CreatureAction> getCreatureActions(){return creatureActions;}
 }

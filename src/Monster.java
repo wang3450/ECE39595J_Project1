@@ -11,6 +11,7 @@ public class Monster extends Creature{
     private int serial;
     private ArrayList<CreatureAction> creatureActions = new ArrayList<CreatureAction>();
     private Char displayChar;
+    private CreatureAction hitAction;
 
     public void setName(String _name) {
         name = _name;
@@ -32,6 +33,8 @@ public class Monster extends Creature{
     public Char getChar(){return displayChar;}
     public int getMaxHit(){return maxHit;}
     public int getHp(){return hp;}
+    public ArrayList<CreatureAction> getCreatureActions (){return creatureActions;}
+
 
 
     public void printAllValues(){

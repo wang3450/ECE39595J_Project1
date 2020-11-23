@@ -48,6 +48,7 @@ public class Player extends Creature {
     public void dropItem(int i){
         inventory.remove(i-1);
     }
+    public ArrayList<CreatureAction> getCreatureActions(){return creatureActions;}
 
 
     public void printAllValues(){
